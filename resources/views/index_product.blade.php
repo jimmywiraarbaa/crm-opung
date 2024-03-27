@@ -12,10 +12,11 @@
         <p>halo</p>
         @foreach ($products as $product)
             <p>{{ $product->name }}</p>
-            <p>{{ $product->description }}</p>
             <p><sup>Rp</sup>{{ $product->price }}</p>
-            <p>{{ $product->stock }}</p>
-            <img src="{{ url('storage/' . $product->image) }}" alt="" class="w-25 ">
+            <img src="{{ url('storage/' . $product->image) }}" alt="" height="100px">
+            <form action="{{ route('show_product', $product) }}" method="get">
+                <button type="submit">Detail</button>
+            </form>
         @endforeach
     </body>
 

@@ -15,6 +15,9 @@
         <p><sup>Rp</sup>{{ $product->price }}</p>
         <p>Stok : {{ $product->stock }}</p>
         <img src="{{ url('storage/' . $product->image) }}" alt="" height="100px">
+        <form action="{{ route('edit_product', $product) }}" method="get">
+            <button type="submit">Ubah Produk</button>
+        </form>
     </body>
 
 </html>

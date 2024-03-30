@@ -23,6 +23,12 @@
             <input type="number" name="amount" value="1">
             <button type="submit">Tambah ke keranjang</button>
         </form>
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        @endif
     </body>
 
 </html>

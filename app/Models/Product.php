@@ -17,7 +17,7 @@ class Product extends Model
         'stock'
     ];
 
-    public function orders()
+    public function transactions()
     {
         return $this->belongsTo(Order::class);
     }

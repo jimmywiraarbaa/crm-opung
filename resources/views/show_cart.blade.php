@@ -9,32 +9,64 @@
     </head>
 
     <body>
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-        @endif
+        @extends('layouts.app')
 
-        @foreach ($carts as $cart)
-            <img src="{{ url('storage/' . $cart->product->image) }}" alt="" height="100px">
-            <p>{{ $cart->product->name }}</p>
-            <form action="{{ route('update_cart', $cart) }}" method="post">
-                @method('patch')
-                @csrf
-                <input type="number" name="amount" value={{ $cart->amount }}>
-                <button type="submit">Ubah Jumlah</button>
-            </form>
-            <form action="{{ route('delete_cart', $cart) }}" method="post">
-                @method('delete')
-                @csrf
-                <button type="submit">Hapus</button>
-            </form>
-        @endforeach
+        @section('content')
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">{{ __('Keranjang') }}</div>
 
-        <form action="{{ route('checkout') }}" method="post">
-            @csrf
-            <button type="submit">Checkout</button>
-        </form>
+                            <div class="card-body">
+                                @if ($errors->any())
+                                    @foreach ($errors->all() as $error)
+                                        <p>{{ $error }}</p>
+                                    @endforeach
+                                @endif
+
+                                <div class="card-group m-auto">
+                                    @foreach ($carts as $cart)
+                                        <div class="card m-3" style="width: 14rem;">
+                                            <img class="card-img-top" src="{{ url('storage/' . $cart->product->image) }}"
+                                                alt="">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ $cart->product->name }}</h5>
+                                                <form action="{{ route('update_cart', $cart) }}" method="post">
+                                                    @method('patch')
+                                                    @csrf
+                                                    <div class="input-group mb-3">
+                                                        <input class="form-control rounded" aria-describedby="basic-addon2"
+                                                            type="number" name="amount" value={{ $cart->amount }}>
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-secondary ms-2 "
+                                                                type="submit">Ubah
+                                                                Jumlah</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <form action="{{ route('delete_cart', $cart) }}" method="post">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button class="btn btn-danger" type="submit">Hapus</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <form action="{{ route('checkout') }}" method="post">
+                                        @csrf
+                                        <button class="btn btn-primary" type="submit"
+                                            @if ($carts->isEmpty()) disabled @endif>Checkout</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endsection
     </body>
 
 </html>

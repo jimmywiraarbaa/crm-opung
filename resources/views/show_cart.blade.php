@@ -25,6 +25,10 @@
                                     @endforeach
                                 @endif
 
+                                @php
+                                    $total_price = 0;
+                                @endphp
+
                                 <div class="card-group m-auto">
                                     @foreach ($carts as $cart)
                                         <div class="card m-3" style="width: 14rem;">
@@ -52,9 +56,14 @@
                                                 </form>
                                             </div>
                                         </div>
+                                        @php
+                                            $total_price += $cart->product->price * $cart->amount;
+                                        @endphp
                                     @endforeach
                                 </div>
-                                <div class="d-flex justify-content-end">
+                                <div class="d-flex flex-column justify-content-end align-items-end">
+                                    <h5 class="fs-5 mb-3">Total Bayar : <span
+                                            class="text-success fw-bold"><sup>Rp</sup>{{ $total_price }}</span></h5>
                                     <form action="{{ route('checkout') }}" method="post">
                                         @csrf
                                         <button class="btn btn-primary" type="submit"

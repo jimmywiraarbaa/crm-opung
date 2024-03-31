@@ -9,33 +9,61 @@
     </head>
 
     <body>
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-        @endif
+        @extends('layouts.app')
 
-        <p>Nama : {{ $user->name }}</p>
-        <p>Email : {{ $user->email }}</p>
-        <p>Role : {{ $user->is_admin ? 'Admin' : 'Member' }}</p>
+        @section('content')
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">{{ __('Profile') }}</div>
 
-        <form action="{{ route('edit_profile') }}" method="post">
-            @csrf
-            <br>
-            <label for="name">Nama</label>
-            <br>
-            <input type="text" name="name" value="{{ $user->name }}">
-            <br>
-            <label for="password">Kata Sandi</label>
-            <br>
-            <input type="password" name="password">
-            <br>
-            <label for="password_confirmation">Konfirmasi Kata Sandi</label>
-            <br>
-            <input type="password" name="password_confirmation">
-            <button type="submit">Ubah Profil</button>
-        </form>
+                            <div class="card-body">
+                                @if ($errors->any())
+                                    @foreach ($errors->all() as $error)
+                                        <p>{{ $error }}</p>
+                                    @endforeach
+                                @endif
 
+                                <form action="{{ route('edit_profile') }}" method="post">
+                                    @csrf
+
+                                    <div class="form-group">
+                                        <label for="name">Nama</label>
+                                        <input class="form-control" type="text" name="name"
+                                            value="{{ $user->name }}">
+                                    </div>
+
+                                    <div class="form-group mt-2">
+                                        <label for="email">Email</label>
+                                        <input class="form-control" type="text" name="name"
+                                            value="{{ $user->email }}" disabled>
+                                    </div>
+
+                                    <div class="form-group mt-2">
+                                        <label for="role">Role</label>
+                                        <input class="form-control" type="text" name="name"
+                                            value="{{ $user->is_admin ? 'Admin' : 'Member' }}" disabled>
+                                    </div>
+
+                                    <div class="form-group mt-2">
+                                        <label for="password">Kata Sandi</label>
+                                        <input class="form-control" type="password" name="password">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password_confirmation">Konfirmasi Kata Sandi</label>
+                                        <input class="form-control" type="password" name="password_confirmation">
+                                    </div>
+
+                                    <button class="btn btn-primary mt-3" type="submit">Ubah Profil</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endsection
     </body>
 
 </html>

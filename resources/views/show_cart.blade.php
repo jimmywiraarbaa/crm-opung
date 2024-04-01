@@ -36,6 +36,7 @@
                                                 alt="">
                                             <div class="card-body">
                                                 <h5 class="card-title">{{ $cart->product->name }}</h5>
+                                                <h5 class="card-subtitle my-2"><sup>Rp</sup>{{ $cart->product->price }}</h5>
                                                 <form action="{{ route('update_cart', $cart) }}" method="post">
                                                     @method('patch')
                                                     @csrf

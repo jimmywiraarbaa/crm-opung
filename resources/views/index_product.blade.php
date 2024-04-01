@@ -26,14 +26,18 @@
                                         <div class="card-body">
                                             <p class="card-text fs-5  fw-semibold ">{{ $product->name }}</p>
                                             <p class="card-text"><sup>Rp</sup>{{ $product->price }}</p>
-                                            <form action="{{ route('show_product', $product) }}" method="get">
-                                                <button class="btn btn-primary" type="submit">Detail</button>
-                                            </form>
-                                            <form action="{{ route('delete_product', $product) }}" method="post">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger mt-2" type="submit">Hapus</button>
-                                            </form>
+                                            <div class="d-flex justify-content-between">
+                                                <form action="{{ route('show_product', $product) }}" method="get">
+                                                    <button class="btn btn-primary" type="submit">Detail</button>
+                                                </form>
+                                                @if (Auth::check() && Auth::user()->is_admin)
+                                                    <form action="{{ route('delete_product', $product) }}" method="post">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button class="btn btn-danger" type="submit">Hapus</button>
+                                                    </form>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach

@@ -41,9 +41,10 @@
                                     @endphp
                                 @endforeach
                                 <hr>
-                                <p class="fw-bold">Total Bayar : <sup>Rp</sup>{{ $total_price }}</p>
+                                <p class="fw-bold">Total Bayar : <span
+                                        class="text-success"><sup>Rp</sup>{{ $total_price }}</span></p>
                                 <hr>
-                                @if ($order->is_paid == false && $order->payment_receipt == null)
+                                @if ($order->is_paid == false && $order->payment_receipt == null && !Auth::user()->is_admin)
                                     <form action="{{ route('submit_payment_receipt', $order) }}" method="post"
                                         enctype="multipart/form-data">
                                         @csrf

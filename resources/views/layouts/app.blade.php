@@ -43,13 +43,14 @@
                             @guest
                                 @if (Route::has('login'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        <a class="nav-link me-3 me-sm-0 "
+                                            href="{{ route('login') }}">{{ __('Masuk') }}</a>
                                     </li>
                                 @endif
 
                                 @if (Route::has('register'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        <a class="btn btn-primary" href="{{ route('register') }}">{{ __('Daftar') }}</a>
                                     </li>
                                 @endif
                             @else
@@ -60,19 +61,27 @@
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('show_cart') }}">
-                                            Keranjang
-                                        </a>
-
-                                        <a class="dropdown-item" href="{{ route('index_order') }}">
-                                            Riwayat Order
-                                        </a>
+                                        @if (Auth::user()->is_admin == true)
+                                            <a class="dropdown-item" href="{{ route('create_product') }}">
+                                                Tambah Produk
+                                            </a>
+                                            <a class="dropdown-item" href="{{ route('index_order') }}">
+                                                Pesanan
+                                            </a>
+                                        @else
+                                            <a class="dropdown-item" href="{{ route('show_cart') }}">
+                                                Keranjang
+                                            </a>
+                                            <a class="dropdown-item" href="{{ route('index_order') }}">
+                                                Riwayat Order
+                                            </a>
+                                        @endif
 
                                         <a class="dropdown-item" href="{{ route('show_profile') }}">
                                             Profile
                                         </a>
 
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        <a class="dropdown-item text-bg-danger" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}

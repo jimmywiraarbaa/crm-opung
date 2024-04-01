@@ -31,20 +31,23 @@
                                         <h3><sup>Rp</sup>{{ $product->price }}</h3>
                                         <hr>
                                         <p>{{ $product->stock }} left</p>
-                                        <form action="{{ route('add_to_cart', $product) }}" method="post">
-                                            @csrf
-                                            <div class="input-group m-3">
-                                                <input class="form-control me-2  rounded" type="number" name="amount"
-                                                    value="1" aria-describedby="basic-addon2">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-outline-secondary" type="submit">Tambah ke
-                                                        keranjang</button>
+                                        @if (!Auth::user()->is_admin)
+                                            <form action="{{ route('add_to_cart', $product) }}" method="post">
+                                                @csrf
+                                                <div class="input-group m-3">
+                                                    <input class="form-control me-2  rounded" type="number" name="amount"
+                                                        value="1" aria-describedby="basic-addon2">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-secondary" type="submit">Tambah ke
+                                                            keranjang</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </form>
-                                        <form action="{{ route('edit_product', $product) }}" method="get">
-                                            <button class="btn btn-primary" type="submit">Ubah Produk</button>
-                                        </form>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('edit_product', $product) }}" method="get">
+                                                <button class="btn btn-primary" type="submit">Ubah Produk</button>
+                                            </form>
+                                        @endif
 
                                         @if ($errors->any())
                                             @foreach ($errors->all() as $error)

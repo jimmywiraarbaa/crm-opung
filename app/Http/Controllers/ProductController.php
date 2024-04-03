@@ -87,4 +87,14 @@ class ProductController extends Controller
         $product->delete();
         return Redirect::route('index_product');
     }
+
+    public function search_product(Request $request)
+    {
+        if ($request->has('search')) {
+            $products = Product::where('name', 'LIKE', '%' . $request->search . '%')->get();
+        } else {
+            $products = Product::all();
+        }
+        return view('index_product', compact('products'));
+    }
 }

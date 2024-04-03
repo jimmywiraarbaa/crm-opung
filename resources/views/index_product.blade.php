@@ -24,6 +24,17 @@
                         <div class="card">
                             <div class="card-header">{{ __('Menu') }}</div>
 
+                            <!-- Tambahkan tombol filter -->
+                            <div class="d-flex flex-row justify-content-around my-3" role="group"
+                                aria-label="Basic example">
+                                <a href="{{ route('index_product') }}"
+                                    class="border rounded px-5 py-2 nav-link{{ !request()->has('category') ? ' text-white bg-primary' : '' }}">Semua</a>
+                                <a href="{{ route('index_product', ['category' => 'Makanan']) }}"
+                                    class="border rounded px-5 py-2 nav-link{{ request()->category === 'Makanan' ? ' text-white bg-primary' : '' }}">Makanan</a>
+                                <a href="{{ route('index_product', ['category' => 'Minuman']) }}"
+                                    class="border rounded px-5 py-2 nav-link{{ request()->category === 'Minuman' ? ' text-white bg-primary' : '' }}">Minuman</a>
+                            </div>
+
                             <div class="card-group m-auto">
                                 @foreach ($products as $product)
                                     <div class="card m-3" style="width: 18rem">

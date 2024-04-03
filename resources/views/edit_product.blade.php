@@ -27,6 +27,18 @@
                                         <input class="form-control" type="text" name="name"
                                             value="{{ $product->name }}">
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="category">Kategori Produk</label>
+                                        <select class="form-select" name="category" aria-label="Default select example"
+                                            required>
+                                            <option value="Makanan"
+                                                {{ $product->category === 'Makanan' ? 'selected' : '' }}>Makanan</option>
+                                            <option value="Minuman"
+                                                {{ $product->category === 'Minuman' ? 'selected' : '' }}>Minuman</option>
+                                        </select>
+                                    </div>
+
                                     <div class="form-group mt-2">
                                         <label for="description">Deskripsi Produk</label>
                                         <input class="form-control" type="text" name="description"
@@ -49,6 +61,7 @@
                                         <label for="image">Gambar Produk</label>
                                         <input class="form-control" type="file" name="image">
                                     </div>
+
 
                                     <button class="btn btn-primary mt-2" type="submit">Ubah</button>
                                 </form>

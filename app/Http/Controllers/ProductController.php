@@ -18,6 +18,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'category' => 'required',
             'price' => 'required',
             'stock' => 'required',
             'description' => 'required',
@@ -31,6 +32,7 @@ class ProductController extends Controller
 
         Product::create([
             'name' => $request->name,
+            'category' => $request->category,
             'price' => $request->price,
             'stock' => $request->stock,
             'description' => $request->description,
@@ -40,9 +42,17 @@ class ProductController extends Controller
         return Redirect::route('create_product');
     }
 
-    public function index_product()
+    public function index_product(Request $request)
     {
-        $products = Product::all();
+        $products = Product::query();
+
+        // Filter berdasarkan kategori jika ada
+        if ($request->has('category') && !empty($request->category)) {
+            $products->where('category', $request->category);
+        }
+
+        $products = $products->get();
+
         return view('index_product', compact('products'));
     }
 
@@ -60,6 +70,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'category' => 'required',
             'price' => 'required',
             'stock' => 'required',
             'description' => 'required',
@@ -73,6 +84,7 @@ class ProductController extends Controller
 
         $product->update([
             'name' => $request->name,
+            'category' => $request->category,
             'price' => $request->price,
             'stock' => $request->stock,
             'description' => $request->description,

@@ -24,14 +24,24 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'profile_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'required|min:8|confirmed',
         ]);
 
         $user = Auth::user();
 
+        if ($request->hasFile('profile_picture')) {
+            $image = $request->file('profile_picture');
+            $name = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/images');
+            $image->move($destinationPath, $name);
+            $user->profile_picture = $name;
+        }
+
         $user->update([
             'name' => $request->name,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'profile_picture' => $user->profile_picture,
         ]);
 
         return Redirect::back();

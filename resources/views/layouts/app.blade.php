@@ -58,6 +58,11 @@
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}
+                                        @if (Auth::user()->profile_picture)
+                                            <img class="rounded-circle mx-2" width="50" height="50"
+                                                src="{{ asset('images/' . Auth::user()->profile_picture) }}"
+                                                alt="Foto Profil">
+                                        @endif
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

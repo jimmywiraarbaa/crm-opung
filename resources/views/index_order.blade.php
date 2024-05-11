@@ -48,6 +48,10 @@
                                                     </div>
                                                 @endif
                                             @endif
+                                            @if ($order->is_paid == true && Auth::user()->is_admin == false)
+                                                <a href="{{ route('create_comment', $order) }}"
+                                                    class="btn btn-primary">Ulasan</a>
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach

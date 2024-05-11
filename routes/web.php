@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
@@ -31,6 +32,8 @@ Route::middleware(['admin'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/product/{product}', [ProductController::class, 'show_product'])->name('show_product');
 
+
+
     Route::post('/cart/{product}', [CartController::class, 'add_to_cart'])->name('add_to_cart');
     Route::get('/cart', [CartController::class, 'show_cart'])->name('show_cart');
     Route::patch('/cart/{cart}', [CartController::class, 'update_cart'])->name('update_cart');
@@ -40,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/order', [OrderController::class, 'index_order'])->name('index_order');
     Route::get('/order/{order}', [OrderController::class, 'show_order'])->name('show_order');
     Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
+
+    Route::get('/order/ulasan/{order} ', [CommentController::class, 'create_comment'])->name('create_comment');
+    Route::post('/order/ulasan/{order} ', [CommentController::class, 'store_comment'])->name('store_comment');
 
     Route::get('/profile', [ProfileController::class, 'show_profile'])->name('show_profile');
     Route::post('/profile', [ProfileController::class, 'edit_profile'])->name('edit_profile');

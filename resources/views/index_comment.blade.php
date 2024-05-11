@@ -21,53 +21,69 @@
                             <div class="card-body">
                                 <div class="card w-100">
                                     <div class="card-body">
-                                        @foreach ($order->transactions as $transaction)
-                                            <div class="">
-                                                <div class="d-flex justify-content-center mb-2 ">
-                                                    <img src="{{ url('storage/' . $transaction->product->image) }}"
-                                                        alt="{{ $transaction->product->name }}" class="w-25 rounded-4 ">
-                                                </div>
-                                                <h3 class="text-center ">{{ $transaction->product->name }}</h3>
-                                                <form action="" method="post">
+                                        <div class="">
+                                            @foreach ($order->transactions as $transaction)
+                                                <form action="{{ route('store_comment', ['order' => $order->id]) }}"
+                                                    method="post">
+
                                                     @csrf
-                                                    <input type="number" class="d-none " name="product_id"
+                                                    <div class="d-flex justify-content-center mb-2 ">
+                                                        <img src="{{ url('storage/' . $transaction->product->image) }}"
+                                                            alt="{{ $transaction->product->name }}" class="w-25 rounded-4 ">
+                                                    </div>
+                                                    <h3 class="text-center ">{{ $transaction->product->name }}</h3>
+                                                    <input type="hidden" name="product_ids[]"
                                                         value="{{ $transaction->product->id }}">
-                                                    <input type="number" value="{{ Auth::user()->id }}" name="user_id"
-                                                        class="d-none">
+                                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                                     <div class="form-group mb-3">
                                                         <div class="d-flex justify-content-center">
                                                             <div class="rating">
-                                                                <input type="radio" id="star5" name="rating"
+                                                                <input type="radio"
+                                                                    id="star5_{{ $transaction->product->id }}"
+                                                                    name="ratings[{{ $transaction->product->id }}]"
                                                                     value="5" />
-                                                                <label class="star" for="star5" title="Awesome"
-                                                                    aria-hidden="true"></label>
-                                                                <input type="radio" id="star4" name="rating"
+                                                                <label class="star"
+                                                                    for="star5_{{ $transaction->product->id }}"
+                                                                    title="Awesome" aria-hidden="true"></label>
+                                                                <input type="radio"
+                                                                    id="star4_{{ $transaction->product->id }}"
+                                                                    name="ratings[{{ $transaction->product->id }}]"
                                                                     value="4" />
-                                                                <label class="star" for="star4" title="Great"
-                                                                    aria-hidden="true"></label>
-                                                                <input type="radio" id="star3" name="rating"
+                                                                <label class="star"
+                                                                    for="star4_{{ $transaction->product->id }}"
+                                                                    title="Great" aria-hidden="true"></label>
+                                                                <input type="radio"
+                                                                    id="star3_{{ $transaction->product->id }}"
+                                                                    name="ratings[{{ $transaction->product->id }}]"
                                                                     value="3" />
-                                                                <label class="star" for="star3" title="Very good"
-                                                                    aria-hidden="true"></label>
-                                                                <input type="radio" id="star2" name="rating"
+                                                                <label class="star"
+                                                                    for="star3_{{ $transaction->product->id }}"
+                                                                    title="Very good" aria-hidden="true"></label>
+                                                                <input type="radio"
+                                                                    id="star2_{{ $transaction->product->id }}"
+                                                                    name="ratings[{{ $transaction->product->id }}]"
                                                                     value="2" />
-                                                                <label class="star" for="star2" title="Good"
-                                                                    aria-hidden="true"></label>
-                                                                <input type="radio" id="star1" name="rating"
+                                                                <label class="star"
+                                                                    for="star2_{{ $transaction->product->id }}"
+                                                                    title="Good" aria-hidden="true"></label>
+                                                                <input type="radio"
+                                                                    id="star1_{{ $transaction->product->id }}"
+                                                                    name="ratings[{{ $transaction->product->id }}]"
                                                                     value="1" />
-                                                                <label class="star" for="star1" title="Bad"
-                                                                    aria-hidden="true"></label>
+                                                                <label class="star"
+                                                                    for="star1_{{ $transaction->product->id }}"
+                                                                    title="Bad" aria-hidden="true"></label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group mb-3">
                                                         <label for="">Komentar</label>
-                                                        <textarea name="content" id="" cols="30" rows="5" class="form-control"></textarea>
+                                                        <textarea name="contents[{{ $transaction->product->id }}]" cols="30" rows="5" class="form-control"></textarea>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Kirim</button>
-                                                </form>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
+                                            <button type="submit" class="btn btn-primary">Kirim</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

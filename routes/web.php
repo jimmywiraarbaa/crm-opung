@@ -44,8 +44,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/order/{order}', [OrderController::class, 'show_order'])->name('show_order');
     Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
 
-    Route::get('/order/ulasan/{order} ', [CommentController::class, 'create_comment'])->name('create_comment');
-    Route::post('/order/ulasan/{order} ', [CommentController::class, 'store_comment'])->name('store_comment');
+    Route::get('/order/{order}/ulasan', [CommentController::class, 'create_comment'])->name('create_comment');
+    Route::post('/order/{order}/ulasan', [CommentController::class, 'store_comment'])->name('store_comment');
 
     Route::get('/profile', [ProfileController::class, 'show_profile'])->name('show_profile');
     Route::post('/profile', [ProfileController::class, 'edit_profile'])->name('edit_profile');

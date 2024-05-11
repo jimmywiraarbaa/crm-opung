@@ -27,17 +27,28 @@ class CommentController extends Controller
     public function store_comment(Request $request)
     {
         $request->validate([
-            'rating' => 'required',
-            'content' => 'required',
+            'ratings' => 'required|array',
+            'contents' => 'required|array',
+            'product_ids' => 'required|array',
         ]);
 
-        Comment::create([
-            'user_id' => $request->user_id,
-            'product_id' => $request->product_id,
-            'rating' => $request->rating,
-            'content' => $request->content,
-        ]);
+        foreach ($request->product_ids as $index => $product_id) {
+            Comment::create([
+                'user_id' => $request->user_id,
+                'product_id' => $product_id,
+                'rating' => $request->ratings[$product_id],
+                'content' => $request->contents[$product_id],
+            ]);
+        }
 
         return Redirect::route('index_order');
+    }
+
+
+    public function store_admin_reply(Request $request)
+    {
+        $request->validate([
+            'content' => 'required'
+        ]);
     }
 }

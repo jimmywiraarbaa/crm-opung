@@ -156,7 +156,8 @@
                                     {{-- Komentar Admin --}}
                                     {{-- Form Balas --}}
                                     <div class="mt-2">
-                                        <form id="replyForm" action="" method="post" class="collapse ">
+                                        <form id="replyForm-{{ $comment->id }}" action="" method="post"
+                                            class="collapse ">
                                             <input type="text" class="form-control">
                                             <div class="d-flex justify-content-end ">
                                                 <button type="submit" class="btn btn-primary mt-2">Kirim</button>

@@ -173,29 +173,37 @@
 
                                     {{-- Tampil Komentar Admin --}}
 
-                                    @foreach ($comment->replies as $reply)
+                                    @if ($comment->replies->isEmpty())
                                         <div id="replyAdmin-{{ $comment->id }}" class="mt-3 collapse">
                                             <div class="bg-body-secondary p-4 rounded">
-                                                <div class="d-flex align-items-center">
-                                                    {{-- Profile User --}}
-                                                    <div class="">
-                                                        <img src="{{ asset('images/' . $reply->user->profile_picture) }}"
-                                                            alt="" style="width: 48px" class="rounded-circle">
-                                                    </div>
-                                                    <div class="ms-2 fw-semibold">
-                                                        <p class="m-0">{{ $reply->user->name }} (Admin)
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                {{-- Isi Balasan --}}
-                                                <div class="mt-4">
-                                                    <p class="m-0">{{ $reply->content }}</p>
-                                                </div>
-                                                {{-- Isi Balasan --}}
-
+                                                <p class="m-0">Belum ada balasan dari admin untuk komentar ini.</p>
                                             </div>
                                         </div>
-                                    @endforeach
+                                    @else
+                                        @foreach ($comment->replies as $reply)
+                                            <div id="replyAdmin-{{ $comment->id }}" class="mt-3 collapse">
+                                                <div class="bg-body-secondary p-4 rounded">
+                                                    <div class="d-flex align-items-center">
+                                                        {{-- Profile User --}}
+                                                        <div class="">
+                                                            <img src="{{ asset('images/' . $reply->user->profile_picture) }}"
+                                                                alt="" style="width: 48px"
+                                                                class="rounded-circle">
+                                                        </div>
+                                                        <div class="ms-2 fw-semibold">
+                                                            <p class="m-0">{{ $reply->user->name }} (Admin)</p>
+                                                        </div>
+                                                    </div>
+                                                    {{-- Isi Balasan --}}
+                                                    <div class="mt-4">
+                                                        <p class="m-0">{{ $reply->content }}</p>
+                                                    </div>
+                                                    {{-- Isi Balasan --}}
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+
                                     {{-- Tampil Komentar Admin --}}
 
 

@@ -30,4 +30,9 @@ class Comment extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function replies()
+    {
+        return $this->hasMany(CommentReply::class);
+    }
 }

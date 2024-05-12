@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\CommentReply;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Transaction;
@@ -45,10 +46,28 @@ class CommentController extends Controller
     }
 
 
-    public function store_admin_reply(Request $request)
+    public function store_reply(Request $request, Comment $comment)
     {
         $request->validate([
-            'content' => 'required'
+            'content' => 'required',
+            'comment_id' => 'required',
+            'user_id' => 'required',
         ]);
+
+        // Menyimpan balasan komentar
+        $commentReply = CommentReply::create([
+            'user_id' => $request->user_id,
+            'comment_id' => $request->comment_id,
+            'content' => $request->content,
+        ]);
+
+        // Perbarui kolom replies_id di tabel comments
+        $commentToUpdate = Comment::find($request->comment_id);
+        $commentToUpdate->replies_id = $commentReply->id;
+        $commentToUpdate->save();
+
+
+
+        return redirect()->back();
     }
 }

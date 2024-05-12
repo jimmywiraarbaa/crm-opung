@@ -75,7 +75,7 @@
                         <div class="mb-5 ">
                             <p class="fs-3 mt-4">Komentar</p>
                             {{-- Komentar --}}
-                            @foreach ($product->comments as $comment)
+                            @foreach ($product->comments()->orderBy('created_at', 'desc')->get() as $comment)
                                 <div class="border border-1 p-4 rounded-2 mb-2 ">
                                     {{-- Komentar User --}}
                                     <div class="">
@@ -156,36 +156,48 @@
                                     {{-- Komentar Admin --}}
                                     {{-- Form Balas --}}
                                     <div class="mt-2">
-                                        <form id="replyForm-{{ $comment->id }}" action="" method="post"
-                                            class="collapse ">
-                                            <input type="text" class="form-control">
-                                            <div class="d-flex justify-content-end ">
-                                                <button type="submit" class="btn btn-primary mt-2">Kirim</button>
+                                        <form action="{{ route('store_reply', ['product' => $product->id]) }}"
+                                            method="post" id="replyForm-{{ $comment->id }}" class="collapse">
+                                            @csrf
+                                            <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                                            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                            <label for="content">Balas:</label>
+                                            <input type="text" class="form-control" name="content" required>
+                                            <div class="d-flex justify-content-end mt-2">
+                                                <button type="submit" class="btn btn-primary">Kirim</button>
                                             </div>
                                         </form>
                                     </div>
                                     {{-- Form Balas --}}
 
-                                    {{-- Tampil Komentar Admin --}}
-                                    <div id="replyAdmin-{{ $comment->id }}" class="mt-3 collapse">
-                                        <div class="bg-body-secondary p-4 rounded">
-                                            <div class="d-flex align-items-center">
-                                                {{-- Profile User --}}
-                                                <div class="">
-                                                    <img src="{{ asset('images/1712583090.jpeg') }}" alt=""
-                                                        style="width: 48px" class="rounded-circle">
-                                                </div>
-                                                <div class="ms-2 fw-semibold">
-                                                    <p class="m-0">Opung Waffle Chinatown (Admin)</p>
-                                                </div>
-                                            </div>
 
-                                            <div class="mt-4">
-                                                <p class="m-0">Terimkasih Sudah berkunjung :)</p>
+                                    {{-- Tampil Komentar Admin --}}
+
+                                    @foreach ($comment->replies as $reply)
+                                        <div id="replyAdmin-{{ $comment->id }}" class="mt-3 collapse">
+                                            <div class="bg-body-secondary p-4 rounded">
+                                                <div class="d-flex align-items-center">
+                                                    {{-- Profile User --}}
+                                                    <div class="">
+                                                        <img src="{{ asset('images/' . $reply->user->profile_picture) }}"
+                                                            alt="" style="width: 48px" class="rounded-circle">
+                                                    </div>
+                                                    <div class="ms-2 fw-semibold">
+                                                        <p class="m-0">{{ $reply->user->name }} (Admin)
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {{-- Isi Balasan --}}
+                                                <div class="mt-4">
+                                                    <p class="m-0">{{ $reply->content }}</p>
+                                                </div>
+                                                {{-- Isi Balasan --}}
+
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
                                     {{-- Tampil Komentar Admin --}}
+
 
                                     {{-- Komentar Admin --}}
                                 </div>

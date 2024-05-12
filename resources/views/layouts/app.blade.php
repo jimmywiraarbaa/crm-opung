@@ -59,7 +59,7 @@
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}
                                         @if (Auth::user()->profile_picture)
-                                            <img class="rounded-circle mx-2" width="50" height="50"
+                                            <img class="rounded-circle mx-2" width="40" height="40"
                                                 src="{{ asset('images/' . Auth::user()->profile_picture) }}"
                                                 alt="Foto Profil">
                                         @endif

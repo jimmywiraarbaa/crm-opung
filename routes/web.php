@@ -31,6 +31,8 @@ Route::middleware(['admin'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/product/{product}', [ProductController::class, 'show_product'])->name('show_product');
+    Route::post('/product/{product}/reply', [CommentController::class, 'store_reply'])->name('store_reply');
+
 
 
 

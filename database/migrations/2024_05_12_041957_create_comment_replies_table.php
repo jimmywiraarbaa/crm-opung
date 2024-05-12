@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('comment_replies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained('products')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->integer('rating');
-            $table->string('content');
-            $table->unsignedBigInteger('replies_id')->nullable()->default(0);
+            $table->unsignedBigInteger('comment_id'); // Kunci asing untuk menghubungkan dengan komentar utama
+            $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
+            $table->text('content');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('comment_replies');
     }
 };

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller
 {
@@ -46,6 +47,10 @@ class ProfileController extends Controller
             'profile_picture' => $user->profile_picture,
         ]);
 
+        Alert::toast('Data berhasil diupdate', 'success')
+            ->position('top-end')
+            ->animation('animate__bounceIn', 'animate__backOutRight')
+            ->autoClose(2500);
         return Redirect::back();
     }
 }

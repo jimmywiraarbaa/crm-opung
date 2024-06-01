@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
 {
@@ -40,6 +41,7 @@ class ProductController extends Controller
             'image' => $path
         ]);
 
+        Alert::success('Hore!', 'Produk Berhasil ditambahkan');
         return Redirect::route('create_product');
     }
 

@@ -14,6 +14,9 @@
         <link rel="dns-prefetch" href="//fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+        {{-- Animate CSS --}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
         {{-- CSS External --}}
         @yield('external-css')
         {{-- CSS External --}}
@@ -30,6 +33,7 @@
                 @yield('content')
             </main>
         </div>
+        @include('sweetalert::alert')
     </body>
 
 </html>

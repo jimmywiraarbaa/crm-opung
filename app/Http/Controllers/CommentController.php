@@ -15,11 +15,13 @@ class CommentController extends Controller
 {
     public function create_comment(Order $order)
     {
+        $title = "Ulasan";
+
         $user = Auth::user();
         $is_admin = $user->is_admin;
 
         if ($is_admin || $order->user_id == $user->id) {
-            return view('index_comment', compact('order'));
+            return view('index_comment', compact('title', 'order'));
         }
 
         return Redirect::route('index_order');

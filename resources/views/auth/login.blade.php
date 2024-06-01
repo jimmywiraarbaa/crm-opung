@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@php
+    $title = 'Login';
+@endphp
 
 @section('content')
     <div class="container">

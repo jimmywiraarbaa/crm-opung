@@ -11,7 +11,8 @@ class ProductController extends Controller
 {
     public function create_product()
     {
-        return view('create_product');
+        $title = "Tambah Produk";
+        return view('create_product', compact('title'));
     }
 
     public function store_product(Request $request)
@@ -44,6 +45,7 @@ class ProductController extends Controller
 
     public function index_product(Request $request)
     {
+        $title = "Menu";
         $products = Product::query();
 
         // Filter berdasarkan kategori jika ada
@@ -53,17 +55,19 @@ class ProductController extends Controller
 
         $products = $products->get();
 
-        return view('index_product', compact('products'));
+        return view('index_product', compact('title', 'products'));
     }
 
     public function show_product(Product $product)
     {
-        return view('show_product', compact('product'));
+        $title = $product->name;
+        return view('show_product', compact('product', 'title'));
     }
 
     public function edit_product(Product $product)
     {
-        return view('edit_product', compact('product'));
+        $title = "Edit " . $product->name;
+        return view('edit_product', compact('title', 'product'));
     }
 
     public function update_product(Product $product, Request $request)
@@ -102,11 +106,18 @@ class ProductController extends Controller
 
     public function search_product(Request $request)
     {
+        $title = "Menu";
+        $message = null;
+
         if ($request->has('search')) {
             $products = Product::where('name', 'LIKE', '%' . $request->search . '%')->get();
+            if ($products->isEmpty()) {
+                $message = "Belum ada Product";
+            }
         } else {
             $products = Product::all();
         }
-        return view('index_product', compact('products'));
+
+        return view('index_product', compact('title', 'products', 'message'));
     }
 }

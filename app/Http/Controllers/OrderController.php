@@ -47,6 +47,8 @@ class OrderController extends Controller
 
     public function index_order()
     {
+        $title = "Order";
+
         $user = Auth::user();
         $is_admin = $user->is_admin;
         if ($is_admin) {
@@ -55,16 +57,18 @@ class OrderController extends Controller
             $orders = Order::where('user_id', $user->id)->get();
         }
 
-        return view('index_order', compact('orders'));
+        return view('index_order', compact('title', 'orders'));
     }
 
     public function show_order(Order $order)
     {
+        $title = "Order";
+
         $user = Auth::user();
         $is_admin = $user->is_admin;
 
         if ($is_admin || $order->user_id == $user->id) {
-            return view('show_order', compact('order'));
+            return view('show_order', compact('title', 'order'));
         }
 
         return Redirect::route('index_order');

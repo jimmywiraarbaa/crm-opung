@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrderController;
@@ -19,6 +20,16 @@ Route::get('/product', [ProductController::class, 'index_product'])->name('index
 Route::get('/product/search', [ProductController::class, 'search_product'])->name('search_product');
 
 Route::middleware(['admin'])->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index_dashboard'])->name('index_dashboard');
+
+    Route::get('/dashboard/product', [AdminController::class, 'product_dashboard'])->name('product_dashboard');
+    Route::post('/dashboard/product', [ProductController::class, 'store_product'])->name('store_product');
+
+    Route::get('/dashboard/discount', [AdminController::class, 'discount_dashboard'])->name('discount_dashboard');
+
+    Route::get('/dashboard/report', [AdminController::class, 'report_dashboard'])->name('report_dashboard');
+
+
     Route::get('/product/create', [ProductController::class, 'create_product'])->name('create_product');
     Route::post('/product/create', [ProductController::class, 'store_product'])->name('store_product');
 

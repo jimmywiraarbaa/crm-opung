@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
         {{-- CSS External --}}
+        <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+
         @yield('external-css')
         {{-- CSS External --}}
 
@@ -27,9 +29,7 @@
 
     <body>
         <div id="app">
-            @include('layouts.nav')
-
-            <main class="py-4">
+            <main>
                 @yield('content')
             </main>
         </div>

@@ -1,0 +1,10 @@
+:root{
+    --primary:#A04C22;
+}
+
+.text-opung{
+    color: var(--primary) !important;
+}
+.bg-opung{
+    background-color: var(--primary) !important;
+}

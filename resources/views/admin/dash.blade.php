@@ -29,7 +29,7 @@
                                 <p class="fw-medium fs-4 ">Total Orderan Hari Ini</p>
                             </div>
                             <div class="text-center">
-                                <p class="fs-1">10</p>
+                                <p class="fs-1">{{ $total_order }}</p>
                             </div>
                         </div>
 
@@ -39,8 +39,10 @@
                     <div class="col-md-5">
                         <div class="rounded-4 pt-3 ps-4 shadow" style="height: 14rem">
                             <p class="fw-medium fs-4 ">Jumlah Menu</p>
+                            <div class="d-flex justify-content-center align-items-center mt-4">
+                                <p class="fs-1 fw-medium m-0">{{ $total_product }}</p>
+                            </div>
                         </div>
-
                     </div>
 
                     <div class="col-md-7">

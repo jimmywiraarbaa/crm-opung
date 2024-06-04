@@ -24,6 +24,7 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/dashboard/product', [AdminController::class, 'product_dashboard'])->name('product_dashboard');
     Route::post('/dashboard/product', [ProductController::class, 'store_product'])->name('store_product');
+    Route::get('/dashboard/product/search', [AdminController::class, 'dash_search_product'])->name('dash_search_product');
 
     Route::get('/dashboard/discount', [AdminController::class, 'discount_dashboard'])->name('discount_dashboard');
 

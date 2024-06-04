@@ -41,8 +41,8 @@ class ProductController extends Controller
             'image' => $path
         ]);
 
-        Alert::success('Hore!', 'Produk Berhasil ditambahkan');
-        return Redirect::route('create_product');
+        Alert::success('Hore!', 'Menu Berhasil ditambahkan');
+        return Redirect::route('product_dashboard');
     }
 
     public function index_product(Request $request)
@@ -97,13 +97,14 @@ class ProductController extends Controller
             'image' => $path
         ]);
 
-        return Redirect::route('show_product', $product);
+        return Redirect::route('product_dashboard', $product);
     }
 
     public function delete_product(Product $product)
     {
         $product->delete();
-        return Redirect::route('index_product');
+        Alert::success('Hore!', 'Menu Berhasil dihapus');
+        return Redirect::route('product_dashboard');
     }
 
     public function search_product(Request $request)

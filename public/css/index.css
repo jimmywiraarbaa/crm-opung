@@ -8,3 +8,35 @@
 .bg-opung{
     background-color: var(--primary) !important;
 }
+
+.btn-opung {
+  color: #fff !important; /* Warna teks putih */
+  background-color: #A04C22 !important; /* Warna latar belakang baru */
+  border-color: #A04C22 !important; /* Warna border baru */
+}
+
+.btn-opung:hover {
+  color: #fff !important; /* Warna teks tetap putih */
+  background-color: #8F4420 !important; /* Warna latar belakang saat hover */
+  border-color: #8F4420 !important; /* Warna border saat hover */
+}
+
+.btn-opung:focus, .btn-opung.focus {
+  color: #fff !important; /* Warna teks tetap putih */
+  background-color: #8F4420 !important; /* Warna latar belakang saat focus */
+  border-color: #8F4420 !important; /* Warna border saat focus */
+  box-shadow: 0 0 0 0.25rem rgba(160, 76, 34, 0.5) !important; /* Bayangan saat focus */
+}
+
+.btn-opung:active, .btn-opung.active, .show > .btn-opung.dropdown-toggle {
+  color: #fff !important; /* Warna teks tetap putih */
+  background-color: #7E3D1C !important; /* Warna latar belakang saat active */
+  border-color: #7E3D1C !important; /* Warna border saat active */
+}
+
+.btn-opung:disabled, .btn-opung.disabled {
+  color: #fff !important; /* Warna teks tetap putih */
+  background-color: #A04C22 !important; /* Warna latar belakang tetap */
+  border-color: #A04C22 !important; /* Warna border tetap */
+  opacity: 0.65 !important; /* Transparansi untuk tombol disabled */
+}

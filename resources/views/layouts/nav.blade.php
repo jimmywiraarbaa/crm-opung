@@ -42,8 +42,8 @@
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             @if (Auth::user()->is_admin == true)
-                                <a class="dropdown-item" href="{{ route('create_product') }}">
-                                    Tambah Produk
+                                <a class="dropdown-item" href="{{ route('index_dashboard') }}">
+                                    Dashboard
                                 </a>
                                 <a class="dropdown-item" href="{{ route('index_order') }}">
                                     Pesanan

@@ -29,11 +29,20 @@
                         Laporan
                     </li>
                 </a>
+                <a href="{{ url('/product') }}" class="text-decoration-none">
+                    <li
+                        class="list-group-item border-0 {{ request()->is('/product') ? 'bg-opung text-white' : 'text-opung' }} mt-2 py-3">
+                        Menu
+                    </li>
+                </a>
             </ul>
         </div>
     </div>
     <div class="mt-auto d-flex flex-column" style="padding: 0 5rem;">
-        <button class="d-flex align-items-center justify-content-center py-2 rounded-pill bg-opung btn">
+        <a href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();"
+            class="d-flex align-items-center justify-content-center py-2 rounded-pill bg-opung btn">
             <div>
                 <svg width="40" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_15_49)">
@@ -51,6 +60,9 @@
             <div class="ms-3">
                 <p class="text-white text-center fs-5 m-0 p-0">Logout</p>
             </div>
-        </button>
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
     </div>
 </div>

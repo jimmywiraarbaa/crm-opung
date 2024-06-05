@@ -34,8 +34,21 @@
                                     @endphp
                                 @endforeach
                                 <hr>
-                                <p class="fw-bold">Total Bayar : <span
-                                        class="text-success"><sup>Rp</sup>{{ $total_price }}</span></p>
+                                @if ($total_price >= $batas_diskon)
+                                    <p class="fw-bold">Bayar : <span
+                                            class="text-danger text-decoration-line-through"><sup>Rp</sup>{{ $total_price }}</span>
+                                    </p>
+                                    <p class="fw-bold">Diskon :
+                                        <span class="text-success"><sup>Rp</sup>{{ $diskon }}</span>
+                                    </p>
+                                    <p class="fw-bold">Total Bayar : <span
+                                            class="text-success"><sup>Rp</sup>{{ $total_price - $diskon }}</span>
+                                    </p>
+                                @else
+                                    <p class="fw-bold">Total Bayar : <span
+                                            class="text-success"><sup>Rp</sup>{{ $total_price }}</span>
+                                    </p>
+                                @endif
                                 <hr>
 
                                 <p class="mb-0">Scan QRIS :</p>

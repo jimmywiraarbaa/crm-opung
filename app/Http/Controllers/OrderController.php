@@ -63,12 +63,13 @@ class OrderController extends Controller
     public function show_order(Order $order)
     {
         $title = "Order";
-
+        $diskon = 10000;
+        $batas_diskon = 100000;
         $user = Auth::user();
         $is_admin = $user->is_admin;
 
         if ($is_admin || $order->user_id == $user->id) {
-            return view('show_order', compact('title', 'order'));
+            return view('show_order', compact('title', 'order', 'diskon', 'batas_diskon'));
         }
 
         return Redirect::route('index_order');

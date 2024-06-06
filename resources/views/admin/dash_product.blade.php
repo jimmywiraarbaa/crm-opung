@@ -54,6 +54,7 @@
                                     alt="{{ $product->name }}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
+                                    <h5 class="card-title">Rp. {{ number_format($product->price, 0, ',', '.') }}</h5>
                                     <div class="d-flex flex-row justify-content-between">
                                         <form id="delete-form-{{ $product->id }}"
                                             action="{{ route('delete_product', $product) }}" method="POST"

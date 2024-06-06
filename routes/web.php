@@ -28,6 +28,10 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/dashboard/discount', [AdminController::class, 'discount_dashboard'])->name('discount_dashboard');
 
+
+    Route::get('/dashboard/order', [AdminController::class, 'order_dashboard'])->name('order_dashboard');
+    Route::get('/dashboard/order/{order}', [AdminController::class, 'order_show_dashboard'])->name('order_show_dashboard');
+
     Route::get('/dashboard/report', [AdminController::class, 'report_dashboard'])->name('report_dashboard');
 
 

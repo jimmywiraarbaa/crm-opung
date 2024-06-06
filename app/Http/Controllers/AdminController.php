@@ -6,10 +6,12 @@ use App\Models\Order;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
-    public function index_dashboard(Product $product)
+    public function index_dashboard()
     {
         $total_product = Product::count();
         $total_order = Order::whereDate('created_at', Carbon::today())->count();
@@ -54,6 +56,41 @@ class AdminController extends Controller
         $title = "Diskon";
         return view('admin.dash_discount', compact('title'));
     }
+
+    public function update_discount()
+    {
+    }
+
+    public function order_dashboard()
+    {
+        $title = "Order";
+        $today = Carbon::today();
+        $user = Auth::user();
+        $is_admin = $user->is_admin;
+        if ($is_admin) {
+            $orders = Order::whereDate('created_at', Carbon::today())->get();
+        } else {
+            $orders = Order::where('user_id', $user->id)->get();
+        }
+
+        return view('admin.dash_order', compact('title', 'orders'));
+    }
+
+    public function order_show_dashboard(Order $order)
+    {
+        $title = "Order";
+        $diskon = 10000;
+        $batas_diskon = 100000;
+        $user = Auth::user();
+        $is_admin = $user->is_admin;
+
+        if ($is_admin || $order->user_id == $user->id) {
+            return view('admin.dash_order_show', compact('title', 'order', 'diskon', 'batas_diskon'));
+        }
+
+        return Redirect::route('order_dashboard');
+    }
+
     public function report_dashboard()
     {
         $title = "Laporan";

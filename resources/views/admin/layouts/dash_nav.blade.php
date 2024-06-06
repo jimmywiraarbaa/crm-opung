@@ -23,6 +23,12 @@
                         Diskon
                     </li>
                 </a>
+                <a href="{{ url('/dashboard/order') }}" class="text-decoration-none">
+                    <li
+                        class="list-group-item border-0 {{ request()->is('dashboard/order', 'dashboard/order/*') ? 'bg-opung text-white' : 'text-opung' }} mt-2 py-3">
+                        Pesanan
+                    </li>
+                </a>
                 <a href="{{ url('/dashboard/report') }}" class="text-decoration-none">
                     <li
                         class="list-group-item border-0 {{ request()->is('dashboard/report') ? 'bg-opung text-white' : 'text-opung' }} mt-2 py-3">

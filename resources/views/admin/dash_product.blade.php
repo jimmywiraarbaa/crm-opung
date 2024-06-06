@@ -49,8 +49,8 @@
                 <div class="row mt-4">
                     @foreach ($products->reverse() as $product)
                         <div data-aos="fade-up" class="col-md-4 mb-4">
-                            <div class="card">
-                                <img src="{{ url('storage/' . $product->image) }}" class="card-img-top"
+                            <div class="card" aria-hidden="true">
+                                <img src="{{ url('storage/' . $product->image) }}" class="card-img-top" loading="lazy"
                                     alt="{{ $product->name }}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
@@ -94,11 +94,16 @@
                                                 <label for="category">Kategori Menu</label>
                                                 <select class="form-select" name="category"
                                                     aria-label="Default select example" required>
-                                                    <option selected>-- Pilih kategori --</option>
-                                                    <option value="Makanan">Makanan</option>
-                                                    <option value="Minuman">Minuman</option>
+                                                    <option>-- Pilih kategori --</option>
+                                                    <option value="Makanan"
+                                                        {{ $product->category === 'Makanan' ? 'selected' : '' }}>Makanan
+                                                    </option>
+                                                    <option value="Minuman"
+                                                        {{ $product->category === 'Minuman' ? 'selected' : '' }}>Minuman
+                                                    </option>
                                                 </select>
                                             </div>
+
                                             <div class="form-group mb-2">
                                                 <label for="description">Deskripsi Produk</label>
                                                 <input class="form-control" type="text" name="description"
@@ -119,7 +124,7 @@
 
                                             <div class="form-group mt-2">
                                                 <label for="file">Gambar Produk</label>
-                                                <input class="form-control" type="file" name="image" required>
+                                                <input class="form-control" type="file" name="image">
                                             </div>
                                         </div>
                                         <div class="modal-footer">

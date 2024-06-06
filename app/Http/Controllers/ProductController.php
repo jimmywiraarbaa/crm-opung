@@ -80,25 +80,39 @@ class ProductController extends Controller
             'price' => 'required',
             'stock' => 'required',
             'description' => 'required',
-            'image' => 'required'
         ]);
 
-        $file = $request->file('image');
-        $path = time() . '_' . $request->name . '.' . $file->getClientOriginalExtension();
+        // Jika ada file gambar yang dikirim
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = time() . '_' . $request->name . '.' . $file->getClientOriginalExtension();
 
-        Storage::disk('local')->put('public/' . $path, file_get_contents($file));
+            Storage::disk('local')->put('public/' . $path, file_get_contents($file));
 
-        $product->update([
-            'name' => $request->name,
-            'category' => $request->category,
-            'price' => $request->price,
-            'stock' => $request->stock,
-            'description' => $request->description,
-            'image' => $path
-        ]);
+            $product->update([
+                'name' => $request->name,
+                'category' => $request->category,
+                'price' => $request->price,
+                'stock' => $request->stock,
+                'description' => $request->description,
+                'image' => $path
+            ]);
+        } else {
+            // Jika tidak ada file gambar yang dikirim
+            $product->update([
+                'name' => $request->name,
+                'category' => $request->category,
+                'price' => $request->price,
+                'stock' => $request->stock,
+                'description' => $request->description,
+                // Pertahankan gambar yang sudah ada dalam database
+            ]);
+        }
 
+        Alert::success('Hore!', 'Menu Berhasil diUpdate');
         return Redirect::route('product_dashboard', $product);
     }
+
 
     public function delete_product(Product $product)
     {

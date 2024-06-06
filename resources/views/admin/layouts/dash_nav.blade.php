@@ -11,6 +11,12 @@
                         Beranda
                     </li>
                 </a>
+                <a href="{{ url('/dashboard/order') }}" class="text-decoration-none">
+                    <li
+                        class="list-group-item border-0 {{ request()->is('dashboard/order', 'dashboard/order/*') ? 'bg-opung text-white' : 'text-opung' }} mt-2 py-3">
+                        Pesanan
+                    </li>
+                </a>
                 <a href="{{ url('/dashboard/product') }}" class="text-decoration-none">
                     <li
                         class="list-group-item border-0 {{ request()->is('dashboard/product', 'dashboard/product/search') ? 'bg-opung text-white' : 'text-opung' }} mt-2 py-3">
@@ -21,12 +27,6 @@
                     <li
                         class="list-group-item border-0 {{ request()->is('dashboard/discount') ? 'bg-opung text-white' : 'text-opung' }} mt-2 py-3">
                         Diskon
-                    </li>
-                </a>
-                <a href="{{ url('/dashboard/order') }}" class="text-decoration-none">
-                    <li
-                        class="list-group-item border-0 {{ request()->is('dashboard/order', 'dashboard/order/*') ? 'bg-opung text-white' : 'text-opung' }} mt-2 py-3">
-                        Pesanan
                     </li>
                 </a>
                 <a href="{{ url('/dashboard/report') }}" class="text-decoration-none">

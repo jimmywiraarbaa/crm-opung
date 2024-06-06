@@ -50,7 +50,10 @@
                                             <div class="col-md-12 col-8">
                                                 <div class="card-body">
                                                     <h5 class="card-title ">{{ $product->name }}</h5>
-                                                    <p class="card-text"><sup>Rp</sup>{{ $product->price }}</p>
+                                                    <p class="card-text">
+                                                        <sup>Rp.</sup>{{ number_format($product->price, 0, ',', '.') }}
+                                                    </p>
+
                                                     <div class="d-flex justify-content-between">
                                                         <div class="">
                                                             @if (Auth::check() && Auth::user()->is_admin)

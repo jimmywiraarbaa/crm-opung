@@ -51,7 +51,11 @@
                                 <p class="fw-medium fs-4 mt-3 ms-4 ">Batas Diskon</p>
                             </div>
 
-                            <div class="d-flex justify-content-between  align-items-end  p-2">
+                            <div class="d-flex justify-content-between  align-items-end  px-4">
+                                <p class="fs-5">Minimum belanja : <br> Rp.{{ number_format($batas_diskon, 0, ',', '.') }}
+                                </p>
+                                <p class="fs-5">Diskon yang didapat : <br> Rp.{{ number_format($diskon, 0, ',', '.') }}
+                                </p>
                             </div>
                         </div>
 

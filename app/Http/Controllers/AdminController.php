@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Discount;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,12 +14,15 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
-    public function index_dashboard()
+    public function index_dashboard(Discount $discount)
     {
+        $discounts = $discount->first();
+        $diskon = $discounts->discount;
+        $batas_diskon = $discounts->discount_limit;
         $total_product = Product::count();
         $total_order = Order::whereDate('created_at', Carbon::today())->count();
         $title = "Dashboard";
-        return view('admin.dash', compact('title', 'total_product', 'total_order'));
+        return view('admin.dash', compact('title', 'total_product', 'total_order', 'diskon', 'batas_diskon'));
     }
     public function product_dashboard(Request $request, Product $product)
     {
@@ -100,21 +104,25 @@ class AdminController extends Controller
         return view('admin.dash_order', compact('title', 'orders'));
     }
 
-    public function order_show_dashboard(Order $order, Discount $discount)
+    public function order_show_dashboard(Order $order)
     {
         $title = "Order";
-        $discounts = $discount->first();
-        $diskon = $discounts->discount;
-        $batas_diskon = $discounts->discount;
         $user = Auth::user();
         $is_admin = $user->is_admin;
 
+        // Ambil semua transaksi yang terkait dengan order ini
+        $transaksi = Transaction::where('order_id', $order->id)->first();
+
+        // Jika tidak ada transaksi, set diskon ke 0
+        $diskon = $transaksi ? $transaksi->discount : 0;
+
         if ($is_admin || $order->user_id == $user->id) {
-            return view('admin.dash_order_show', compact('title', 'order', 'diskon', 'batas_diskon'));
+            return view('admin.dash_order_show', compact('title', 'order', 'diskon'));
         }
 
         return Redirect::route('order_dashboard');
     }
+
 
     public function report_dashboard()
     {

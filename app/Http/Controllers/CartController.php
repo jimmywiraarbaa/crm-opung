@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,13 +49,16 @@ class CartController extends Controller
         return Redirect::route('show_cart');
     }
 
-    public function show_cart()
+    public function show_cart(Discount $discount)
     {
         $title = "Keranjang";
 
+        $discounts = $discount->first();
+        $diskon = $discounts->discount;
+        $batas_discount = $discounts->discount_limit;
         $user_id = Auth::id();
         $carts = Cart::where('user_id', $user_id)->get();
-        return view('show_cart', compact('title', 'carts'));
+        return view('show_cart', compact('title', 'carts', 'diskon', 'batas_discount'));
     }
 
     public function update_cart(Cart $cart, Request $request)

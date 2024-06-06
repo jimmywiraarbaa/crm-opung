@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Discount;
 use App\Models\Order;
 use App\Models\Transaction;
 use App\Models\Product;
@@ -13,12 +14,16 @@ use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
-    public function checkout()
+    public function checkout(Request $request)
     {
+        $request->validate([
+            'discount' => 'required|integer|min:0'
+        ]);
+
         $user_id = Auth::id();
         $carts = Cart::where('user_id', $user_id)->get();
 
-        if ($carts == null) {
+        if ($carts->isEmpty()) {
             return Redirect::back();
         }
 
@@ -36,7 +41,8 @@ class OrderController extends Controller
             Transaction::create([
                 'amount' => $cart->amount,
                 'order_id' => $order->id,
-                'product_id' => $cart->product_id
+                'product_id' => $cart->product_id,
+                'discount' => $request->discount,
             ]);
 
             $cart->delete();
@@ -44,6 +50,7 @@ class OrderController extends Controller
 
         return Redirect::route('show_order', $order);
     }
+
 
     public function index_order()
     {
@@ -63,17 +70,22 @@ class OrderController extends Controller
     public function show_order(Order $order)
     {
         $title = "Order";
-        $diskon = 10000;
-        $batas_diskon = 100000;
         $user = Auth::user();
         $is_admin = $user->is_admin;
 
+        // Ambil semua transaksi yang terkait dengan order ini
+        $transaksi = Transaction::where('order_id', $order->id)->first();
+
+        // Jika tidak ada transaksi, set diskon ke 0
+        $diskon = $transaksi ? $transaksi->discount : 0;
+
         if ($is_admin || $order->user_id == $user->id) {
-            return view('show_order', compact('title', 'order', 'diskon', 'batas_diskon'));
+            return view('show_order', compact('title', 'order', 'diskon'));
         }
 
         return Redirect::route('index_order');
     }
+
 
     public function submit_payment_receipt(Order $order, Request $request)
     {

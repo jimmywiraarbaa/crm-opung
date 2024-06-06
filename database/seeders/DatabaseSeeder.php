@@ -22,6 +22,13 @@ class DatabaseSeeder extends Seeder
                 'email' => 'opung@waffle.com',
                 'password' => Hash::make('opung12345'),
                 'is_admin' => true
+            ],
+            [
+                'id' => 2,
+                'name' => "Jimmy Wira Arba'a",
+                'email' => 'jimmy@gmail.com',
+                'password' => Hash::make('jimmy12345'),
+                'is_admin' => false
             ]
         ]);
     }

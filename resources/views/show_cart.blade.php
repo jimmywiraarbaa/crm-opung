@@ -52,13 +52,28 @@
                             @endforeach
                         </div>
                         <div class="d-flex flex-column justify-content-end align-items-end">
-                            <h5 class="fs-5 mb-3">Total Bayar : <span
-                                    class="text-success fw-bold"><sup>Rp</sup>{{ $total_price }}</span></h5>
+                            @if ($total_price >= $batas_discount)
+                                <h6 class="fs-6 mb-3">Diskon : <span
+                                        class="text-success fw-bold"><sup>Rp</sup>{{ $diskon }}</span></h6>
+                                <h6 class="fs-6 mb-3">Bayar : <span
+                                        class="text-danger fw-bold text-decoration-line-through"><sup>Rp</sup>{{ $total_price }}</span>
+                                </h6>
+                                <h5 class="fs-5 mb-3">Total Bayar : <span
+                                        class="text-success fw-bold"><sup>Rp</sup>{{ $total_price - $diskon }}</span></h5>
+                            @else
+                                <h5 class="fs-5 mb-3">Total Bayar : <span
+                                        class="text-success fw-bold"><sup>Rp</sup>{{ $total_price }}</span></h5>
+                            @endif
                             <form action="{{ route('checkout') }}" method="post">
                                 @csrf
+                                <input type="number" name="discount"
+                                    value="{{ $total_price >= $batas_discount ? $diskon : 0 }}"
+                                    class="form-control d-none">
                                 <button class="btn btn-primary" type="submit"
                                     @if ($carts->isEmpty()) disabled @endif>Checkout</button>
                             </form>
+
+
                         </div>
                     </div>
                 </div>

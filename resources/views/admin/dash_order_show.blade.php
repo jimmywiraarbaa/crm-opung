@@ -37,7 +37,11 @@
                                 @endphp
                             @endforeach
                             <hr>
-                            @if ($total_price >= $batas_diskon)
+                            @if ($diskon == 0)
+                                <p class="fw-bold">Total Bayar : <span
+                                        class="text-success"><sup>Rp</sup>{{ $total_price }}</span>
+                                </p>
+                            @else
                                 <p class="fw-bold">Bayar : <span
                                         class="text-danger text-decoration-line-through"><sup>Rp</sup>{{ $total_price }}</span>
                                 </p>
@@ -46,10 +50,6 @@
                                 </p>
                                 <p class="fw-bold">Total Bayar : <span
                                         class="text-success"><sup>Rp</sup>{{ $total_price - $diskon }}</span>
-                                </p>
-                            @else
-                                <p class="fw-bold">Total Bayar : <span
-                                        class="text-success"><sup>Rp</sup>{{ $total_price }}</span>
                                 </p>
                             @endif
                             <hr>

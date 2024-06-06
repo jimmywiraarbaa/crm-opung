@@ -142,7 +142,7 @@
 
                 </div>
 
-                {{-- Data Dokter --}}
+                {{-- Data Menu --}}
             </div>
 
         </div>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Discount;
 use App\Models\Order;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -54,11 +56,33 @@ class AdminController extends Controller
     public function discount_dashboard()
     {
         $title = "Diskon";
-        return view('admin.dash_discount', compact('title'));
+        $discounts = Discount::first();
+
+        // Jika tidak ada diskon, buat instance kosong atau atur nilai default
+        if (!$discounts) {
+            $discounts = new \stdClass();
+            $discounts->discount = 0; // atau nilai default yang sesuai
+            $discounts->discount_limit = 0; // atau nilai default yang sesuai
+        }
+
+        return view('admin.dash_discount', compact('title', 'discounts'));
     }
 
-    public function update_discount()
+    public function update_discount(Request $request, Discount $discount)
     {
+        $request->validate([
+            'discount' => 'required|integer|min:0',
+            'discount_limit' => 'required|integer|min:0',
+        ]);
+
+        $discount_settings = $discount::first();
+        $discount_settings->update([
+            'discount' => $request->discount,
+            'discount_limit' => $request->discount_limit,
+        ]);
+
+        Alert::success('Hore!', 'Diskon Berhasil diUpdate');
+        return Redirect::back();
     }
 
     public function order_dashboard()
@@ -76,11 +100,12 @@ class AdminController extends Controller
         return view('admin.dash_order', compact('title', 'orders'));
     }
 
-    public function order_show_dashboard(Order $order)
+    public function order_show_dashboard(Order $order, Discount $discount)
     {
         $title = "Order";
-        $diskon = 10000;
-        $batas_diskon = 100000;
+        $discounts = $discount->first();
+        $diskon = $discounts->discount;
+        $batas_diskon = $discounts->discount;
         $user = Auth::user();
         $is_admin = $user->is_admin;
 

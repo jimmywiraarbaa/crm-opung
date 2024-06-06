@@ -13,7 +13,7 @@
                 </a>
                 <a href="{{ url('/dashboard/product') }}" class="text-decoration-none">
                     <li
-                        class="list-group-item border-0 {{ request()->is('dashboard/product') ? 'bg-opung text-white' : 'text-opung' }} mt-2 py-3">
+                        class="list-group-item border-0 {{ request()->is('dashboard/product', 'dashboard/product/search') ? 'bg-opung text-white' : 'text-opung' }} mt-2 py-3">
                         Tambah Produk
                     </li>
                 </a>

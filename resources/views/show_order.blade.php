@@ -52,7 +52,9 @@
                                 <hr>
 
                                 <p class="mb-0">Scan QRIS :</p>
-                                <img src="{{ asset('images/KODE-QR-Opung.png') }}" alt="" class="w-25">
+                                <img src="{{ asset('images/KODE-QR-Opung.png') }}" alt="" class="w-75 d-lg-none">
+                                <img src="{{ asset('images/KODE-QR-Opung.png') }}" alt=""
+                                    class="w-50 d-none d-lg-block">
                                 <p class="text-muted mb-0">*Jangan lupa Screenshot bukti bayar</p>
                                 <a href="{{ asset('images/KODE-QR-Opung.png') }}" download class="btn btn-success">
                                     Download QR

@@ -4,79 +4,78 @@
 @endphp
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Masuk') }}</div>
+    <section class="vh-100 bg-opung">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="{{ asset('images/opung/hero-login2.jpg') }}" alt="login form"
+                                    class="h-100 img-fluid border-0 " style="border-radius: 1rem 0 0 1rem;" />
+                            </div>
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
 
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
+                                    <h1 class="fw-normal pb-3 text-center text-md-start" style="letter-spacing: 1px;">
+                                        Masuk
+                                    </h1>
 
-                            <div class="row mb-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
+                                    <h6 class="text-opung mb-3">Hallo, selamat datang kembali warga opung :D</h6>
 
-                                <div class="col-md-6">
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <form method="POST" action="{{ route('login') }}">
+                                        @csrf
+                                        {{-- Email --}}
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="email">Email</label>
+                                            <input type="email" id="email" name="email" value="{{ old('email') }}"
+                                                required autocomplete="email" autofocus
+                                                class="form-control form-control-lg @error('email') is-invalid @enderror" />
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                        {{-- Password --}}
+                                        <div data-mdb-input-init class="form-outline mb-4">
+                                            <label class="form-label" for="password">Kata Sandi</label>
+                                            <input type="password" id="password" name="password" required
+                                                autocomplete="current-password"
+                                                class="form-control form-control-lg @error('password') is-invalid @enderror" />
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                                                {{ old('remember') ? 'checked' : '' }}>
+
+                                            <label class="form-check-label" for="remember">
+                                                {{ __('Ingat saya') }}
+                                            </label>
+                                        </div>
+
+                                        <div class="pt-1 my-3">
+                                            <button data-mdb-button-init data-mdb-ripple-init
+                                                class="btn btn-opung btn-lg btn-block" type="submit">Login</button>
+                                        </div>
+                                    </form>
+
+                                    <p class="mb-5 pb-lg-2">Belum punya akun?
+                                        <a href="{{ route('register') }}">Daftar disini</a>
+                                    </p>
+
                                 </div>
                             </div>
-
-                            <div class="row mb-3">
-                                <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Kata Sandi') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="current-password">
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                            {{ old('remember') ? 'checked' : '' }}>
-
-                                        <label class="form-check-label" for="remember">
-                                            {{ __('Ingat saya') }}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Masuk') }}
-                                    </button>
-
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Lupa Password?') }}
-                                        </a>
-                                    @endif
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection

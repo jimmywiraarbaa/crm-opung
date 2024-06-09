@@ -32,6 +32,8 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/dashboard/order', [AdminController::class, 'order_dashboard'])->name('order_dashboard');
     Route::get('/dashboard/order/{order}', [AdminController::class, 'order_show_dashboard'])->name('order_show_dashboard');
+    Route::get('/dashboard/order/{order}/cetak', [AdminController::class, 'order_show_dashboard'])->name('order_show_dashboard');
+    Route::post('dashboard/order/{order}/confirm', [OrderController::class, 'confirm_payment'])->name('confirm_payment');
 
     Route::get('/dashboard/report', [AdminController::class, 'report_dashboard'])->name('report_dashboard');
 
@@ -42,8 +44,6 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/product/{product}/edit', [ProductController::class, 'edit_product'])->name('edit_product');
     Route::patch('/product/{product}/update', [ProductController::class, 'update_product'])->name('update_product');
     Route::delete('/product/{product}', [ProductController::class, 'delete_product'])->name('delete_product');
-
-    Route::post('/order/{order}/confirm', [OrderController::class, 'confirm_payment'])->name('confirm_payment');
 });
 
 Route::middleware(['auth'])->group(function () {

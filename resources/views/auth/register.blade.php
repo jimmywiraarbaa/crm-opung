@@ -12,7 +12,7 @@
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                 <div class="card-body p-4 py-lg-4 px-lg-5 text-black">
 
-                                    <h2 class="fw-normal pb-3 text-center text-md-start" style="letter-spacing: 1px;">
+                                    <h2 class="fw-normal pb-1 text-center text-md-start" style="letter-spacing: 1px;">
                                         Pendaftaran
                                     </h2>
 
@@ -25,7 +25,7 @@
                                             <label for="name" class="">{{ __('Nama') }}</label>
 
                                             <div class="mt-2">
-                                                <input id="name" type="text"
+                                                <input id="name" type="text" placeholder="John"
                                                     class="form-control @error('name') is-invalid @enderror" name="name"
                                                     value="{{ old('name') }}" required autocomplete="name" autofocus>
 
@@ -38,10 +38,25 @@
                                         </div>
 
                                         <div class="mb-2">
+                                            <label for="phone">Nomor HP</label>
+
+                                            <div class="mt-2">
+                                                <input type="text" id="phone" name="phone"
+                                                    value="{{ old('phone') }}" maxlength="13" placeholder="08325443xxxx"
+                                                    class="@error('phone') is-invalid @enderror form-control">
+                                                @error('phone')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-2">
                                             <label for="email" class="">{{ __('Alamat Email') }}</label>
 
                                             <div class="mt-2">
-                                                <input id="email" type="email"
+                                                <input id="email" type="email" placeholder="john@example.com"
                                                     class="form-control @error('email') is-invalid @enderror" name="email"
                                                     value="{{ old('email') }}" required autocomplete="email">
 
@@ -79,13 +94,13 @@
                                             </div>
                                         </div>
 
-                                        <div class="pt-1 my-3">
+                                        <div class="pt-1 my-3 text-center text-lg-start">
                                             <button class="btn btn-opung btn-lg btn-block fs-6 "
                                                 type="submit">Daftar</button>
                                         </div>
                                     </form>
 
-                                    <p class="mb-5 pb-lg-2">Sudah punya akun?
+                                    <p class="">Sudah punya akun?
                                         <a href="{{ route('login') }}">Masuk disini</a>
                                     </p>
 

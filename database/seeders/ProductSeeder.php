@@ -35,9 +35,9 @@ class ProductSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Vanilla Orange 600ml',
-                'price' => 55000,
-                'description' => 'Minuman rasa vanilla orange dengan ukuran botol 600ml',
+                'name' => 'Vanilla Orange',
+                'price' => 22000,
+                'description' => 'Minuman rasa vanilla orange',
                 'category' => 'Minuman',
                 'image' => 'images/menu/regg-rum.jpg',
                 'stock' => rand(10, 100),

@@ -8,7 +8,7 @@
                 <div class="input-group mb-3 justify-content-end">
                     <form action="{{ route('search_product') }}" method="get" class="d-flex">
                         <input type="text" class="form-control" name="search" placeholder="Search">
-                        <button class="btn btn-primary ms-2 d-flex align-items-center" type="submit">
+                        <button class="btn btn-opung ms-2 d-flex align-items-center" type="submit">
                             <svg width="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M16.6725 16.6412L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"
@@ -23,11 +23,11 @@
                     <!-- Tambahkan tombol filter -->
                     <div class="d-flex flex-row justify-content-around my-3" role="group" aria-label="Basic example">
                         <a href="{{ route('index_product') }}"
-                            class="border rounded px-lg-5 py-lg-2 px-md-4 py-md-2 px-3 py-1 nav-link{{ !request()->has('category') ? ' text-white bg-primary' : '' }}">Semua</a>
+                            class="border rounded px-lg-5 py-lg-2 px-md-4 py-md-2 px-3 py-1 nav-link{{ !request()->has('category') ? ' text-white bg-opung' : '' }}">Semua</a>
                         <a href="{{ route('index_product', ['category' => 'Makanan']) }}"
-                            class="border rounded px-lg-5 py-lg-2 px-md-4 py-md-2 px-3 py-1 nav-link{{ request()->category === 'Makanan' ? ' text-white bg-primary' : '' }}">Makanan</a>
+                            class="border rounded px-lg-5 py-lg-2 px-md-4 py-md-2 px-3 py-1 nav-link{{ request()->category === 'Makanan' ? ' text-white bg-opung' : '' }}">Makanan</a>
                         <a href="{{ route('index_product', ['category' => 'Minuman']) }}"
-                            class="border rounded px-lg-5 py-lg-2 px-md-4 py-md-2 px-3 py-1 nav-link{{ request()->category === 'Minuman' ? ' text-white bg-primary' : '' }}">Minuman</a>
+                            class="border rounded px-lg-5 py-lg-2 px-md-4 py-md-2 px-3 py-1 nav-link{{ request()->category === 'Minuman' ? ' text-white bg-opung' : '' }}">Minuman</a>
                     </div>
 
                     <div class="px-5">
@@ -54,18 +54,7 @@
                                                         <sup>Rp.</sup>{{ number_format($product->price, 0, ',', '.') }}
                                                     </p>
 
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class="">
-                                                            @if (Auth::check() && Auth::user()->is_admin)
-                                                                <form action="{{ route('delete_product', $product) }}"
-                                                                    method="post">
-                                                                    @method('delete')
-                                                                    @csrf
-                                                                    <button class="btn btn-danger"
-                                                                        type="submit">Hapus</button>
-                                                                </form>
-                                                            @endif
-                                                        </div>
+                                                    <div class="d-flex justify-content-end">
                                                         <div class="d-flex justify-content-end align-items-end">
                                                             <form action="{{ route('show_product', $product) }}"
                                                                 method="get">

@@ -27,6 +27,7 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'phone' => ['required', 'string', 'max:13'],
             'profile_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'required|min:8|confirmed',
         ]);
@@ -44,6 +45,7 @@ class ProfileController extends Controller
         $user->update([
             'name' => $request->name,
             'password' => Hash::make($request->password),
+            'telp' => $user->telp,
             'profile_picture' => $user->profile_picture,
         ]);
 

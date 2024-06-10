@@ -40,9 +40,9 @@
                             </div>
 
                             <div class="form-group mt-2">
-                                <label for="role">Role</label>
-                                <input class="form-control" type="text" name="name"
-                                    value="{{ $user->is_admin ? 'Admin' : 'Member' }}" disabled>
+                                <label for="phone">Nomor HP</label>
+                                <input class="form-control" type="number" name="phone" id="phone"
+                                    value="{{ $user->phone }}">
                             </div>
 
                             <div class="form-group mt-2">

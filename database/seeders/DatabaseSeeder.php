@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
                 'id' => 1,
                 'name' => 'Opung Waffle Chinatown',
                 'email' => 'opung@waffle.com',
+                'phone' => '083254655443',
                 'password' => Hash::make('opung12345'),
                 'is_admin' => true
             ],
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
                 'id' => 2,
                 'name' => "Jimmy Wira Arba'a",
                 'email' => 'jimmy@gmail.com',
+                'phone' => '085363298884',
                 'password' => Hash::make('jimmy12345'),
                 'is_admin' => false
             ],
@@ -34,6 +36,7 @@ class DatabaseSeeder extends Seeder
                 'id' => 3,
                 'name' => "Frenti Susta Julianti",
                 'email' => 'frenti@gmail.com',
+                'phone' => '084576437632',
                 'password' => Hash::make('frenti12345'),
                 'is_admin' => false
             ]

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class OrderController extends Controller
 {
@@ -108,5 +109,12 @@ class OrderController extends Controller
         ]);
 
         return Redirect::back();
+    }
+
+    public function destroy_order(Order $order)
+    {
+        $order->delete();
+        Alert::success('Hore!', 'Menu Berhasil dihapus');
+        return Redirect::route('order_dashboard');
     }
 }

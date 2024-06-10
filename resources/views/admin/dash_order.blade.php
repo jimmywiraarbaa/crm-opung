@@ -65,6 +65,13 @@
                                                     @csrf
                                                     <button class="btn btn-success" type="submit">Konfirmasi</button>
                                                 </form>
+
+                                                <form action="{{ route('delete_order_dashboard', $order) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger delete-confirm"
+                                                        data-id="{{ $order->id }}">Hapus</button>
+                                                </form>
                                             @endif
                                         </div>
                                     @endif

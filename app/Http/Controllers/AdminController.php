@@ -129,4 +129,8 @@ class AdminController extends Controller
         $title = "Laporan";
         return view('admin.dash_report', compact('title'));
     }
+
+    public function report_export()
+    {
+    }
 }

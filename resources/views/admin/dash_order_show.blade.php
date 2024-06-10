@@ -54,6 +54,7 @@
                             @endif
                             <hr>
 
+                            <button class="btn btn-primary">Cetak Struk</button>
                             @if (Auth::User()->is_admin == false)
                                 <p class="mb-0">Scan QRIS :</p>
                                 <img src="{{ asset('images/kodeqr.png') }}" alt="">

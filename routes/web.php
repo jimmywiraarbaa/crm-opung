@@ -32,7 +32,7 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/dashboard/order', [AdminController::class, 'order_dashboard'])->name('order_dashboard');
     Route::get('/dashboard/order/{order}', [AdminController::class, 'order_show_dashboard'])->name('order_show_dashboard');
-    Route::get('/dashboard/order/{order}/cetak', [AdminController::class, 'order_show_dashboard'])->name('order_show_dashboard');
+    Route::get('/dashboard/order/{order}/cetak', [AdminController::class, 'pdf_order_show_dashboard'])->name('pdf_order_show_dashboard');
     Route::post('dashboard/order/{order}/confirm', [OrderController::class, 'confirm_payment'])->name('confirm_payment');
 
     Route::get('/dashboard/report', [AdminController::class, 'report_dashboard'])->name('report_dashboard');

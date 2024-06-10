@@ -3,7 +3,7 @@ import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
     server: {
-        host: '192.168.18.11',
+        host: '192.168.210.4',
         port: '8000',
     },
     plugins: [

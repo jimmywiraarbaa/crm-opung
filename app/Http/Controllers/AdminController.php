@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminController extends Controller
 {
@@ -104,7 +105,7 @@ class AdminController extends Controller
         return view('admin.dash_order', compact('title', 'orders'));
     }
 
-    public function order_show_dashboard(Order $order)
+    public function order_show_dashboard(Order $order, Request $request)
     {
         $title = "Order";
         $user = Auth::user();
@@ -116,12 +117,49 @@ class AdminController extends Controller
         // Jika tidak ada transaksi, set diskon ke 0
         $diskon = $transaksi ? $transaksi->discount : 0;
 
+        // Cek apakah permintaan adalah untuk export PDF
+        if ($request->get('export') == 'pdf') {
+            $pdf = Pdf::loadView('pdf.order', ['transaksi' => $transaksi]);
+            return $pdf->download('Struk Order.pdf');
+        }
+
+        // Pastikan hanya admin atau pemilik order yang bisa melihat order ini
         if ($is_admin || $order->user_id == $user->id) {
             return view('admin.dash_order_show', compact('title', 'order', 'diskon'));
         }
 
         return Redirect::route('order_dashboard');
     }
+
+    public function pdf_order_show_dashboard(Order $order, Request $request)
+    {
+        $title = "Order";
+        $user = Auth::user();
+        $is_admin = $user->is_admin;
+
+        // Ambil semua transaksi yang terkait dengan order ini
+        $transaksi = Transaction::where('order_id', $order->id)->first();
+
+        // Jika tidak ada transaksi, set diskon ke 0
+        $diskon = $transaksi ? $transaksi->discount : 0;
+
+        if ($request->get('export') == 'pdf') {
+            $pdf = Pdf::loadView('pdf.order', [
+                'transaksi' => $transaksi,
+                'order' => $order,
+                'diskon' => $diskon
+            ]);
+            return $pdf->stream('Struk Order.pdf');
+        }
+
+        // Pastikan hanya admin atau pemilik order yang bisa melihat order ini
+        if ($is_admin || $order->user_id == $user->id) {
+            return view('pdf.order', compact('title', 'order', 'diskon'));
+        }
+
+        return Redirect::route('order_dashboard');
+    }
+
 
 
     public function report_dashboard()

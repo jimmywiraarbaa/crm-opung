@@ -162,10 +162,11 @@ class AdminController extends Controller
 
 
 
-    public function report_dashboard()
+    public function report_dashboard(Transaction $transaction)
     {
         $title = "Laporan";
-        return view('admin.dash_report', compact('title'));
+        $reports = $transaction::all();
+        return view('admin.dash_report', compact('title', 'reports'));
     }
 
     public function report_export()

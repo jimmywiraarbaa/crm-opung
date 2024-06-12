@@ -23,10 +23,14 @@
                     <h5 class="card-title mt-2">Order ID {{ $order->id }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">by {{ $order->user->name }}</h6>
 
-                    @if ($order->is_paid)
-                        <p class="card-text text-success">Terbayar</p>
+                    @if ($order->payment_receipt == null)
+                        <p class="card-text text-danger ">Belum Bayar</p>
                     @else
-                        <p class="card-text text-danger">Belum Bayar</p>
+                        @if ($order->is_paid)
+                            <p class="card-text text-success">Terbayar</p>
+                        @else
+                            <p class="card-text text-warning">Menunggu Konfirmasi Admin</p>
+                        @endif
                     @endif
 
                     <hr>

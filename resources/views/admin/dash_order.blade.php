@@ -29,8 +29,16 @@
                                 @if ($order->is_paid == true)
                                     <p class="card-text text-success">Terbayar</p>
                                 @else
-                                    <p class="card-text text-danger">Belum Bayar</p>
-                                    @if ($order->payment_receipt)
+                                    @if ($order->payment_receipt == null)
+                                        <p class="card-text text-danger">Belum Bayar</p>
+                                        <form action="{{ route('delete_order_dashboard', $order) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger delete-confirm"
+                                                data-id="{{ $order->id }}">Hapus</button>
+                                        </form>
+                                    @else
+                                        <p class="card-text text-warning">Menunggu Konfirmasi Admin</p>
                                         <div class="d-flex flex-row justify-content-around">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">

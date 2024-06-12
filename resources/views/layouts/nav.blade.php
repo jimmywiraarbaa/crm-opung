@@ -33,7 +33,7 @@
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
+                            Halo, {{ explode(' ', Auth::user()->name)[0] }}
                             @if (Auth::user()->profile_picture)
                                 <img class="rounded-circle mx-2" width="40" height="40"
                                     src="{{ asset('images/' . Auth::user()->profile_picture) }}" alt="Foto Profil">
@@ -45,10 +45,10 @@
                                 <a class="dropdown-item" href="{{ route('index_dashboard') }}">
                                     Dashboard
                                 </a>
-                                <a class="dropdown-item" href="{{ route('index_order') }}">
-                                    Pesanan
-                                </a>
                             @else
+                                <a class="dropdown-item" href="{{ route('index_product') }}">
+                                    Menu
+                                </a>
                                 <a class="dropdown-item" href="{{ route('show_cart') }}">
                                     Keranjang
                                 </a>

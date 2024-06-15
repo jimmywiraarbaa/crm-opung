@@ -18,7 +18,7 @@
                                 <p class="fw-medium fs-4 ">Penjualan Hari Ini</p>
                             </div>
                             <div class="">
-                                <p class="m-0 p-0 fs-1">Rp.1500000</p>
+                                <p class="m-0 p-0 fs-1">Rp.{{ $total_pay }}</p>
                             </div>
                         </div>
                     </div>

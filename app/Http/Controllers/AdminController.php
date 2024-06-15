@@ -23,8 +23,9 @@ class AdminController extends Controller
         $batas_diskon = $discounts->discount_limit;
         $total_product = Product::count();
         $total_order = Order::whereDate('created_at', Carbon::today())->count();
+        $total_pay = Order::whereDate('created_at', DB::raw('CURDATE()'))->sum('pay_price');
         $title = "Dashboard";
-        return view('admin.dash', compact('title', 'total_product', 'total_order', 'diskon', 'batas_diskon'));
+        return view('admin.dash', compact('title', 'total_product', 'total_order', 'total_pay', 'diskon', 'batas_diskon'));
     }
     public function product_dashboard(Request $request, Product $product)
     {

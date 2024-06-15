@@ -17,9 +17,6 @@ class OrderController extends Controller
 {
     public function checkout(Request $request)
     {
-        $request->validate([
-            'discount' => 'required|integer|min:0'
-        ]);
 
         $user_id = Auth::id();
         $carts = Cart::where('user_id', $user_id)->get();
@@ -29,7 +26,8 @@ class OrderController extends Controller
         }
 
         $order = Order::create([
-            'user_id' => $user_id
+            'user_id' => $user_id,
+            'discount' => $request->discount,
         ]);
 
         foreach ($carts as $cart) {
@@ -43,7 +41,6 @@ class OrderController extends Controller
                 'amount' => $cart->amount,
                 'order_id' => $order->id,
                 'product_id' => $cart->product_id,
-                'discount' => $request->discount,
             ]);
 
             $cart->delete();
@@ -74,11 +71,7 @@ class OrderController extends Controller
         $user = Auth::user();
         $is_admin = $user->is_admin;
 
-        // Ambil semua transaksi yang terkait dengan order ini
-        $transaksi = Transaction::where('order_id', $order->id)->first();
-
-        // Jika tidak ada transaksi, set diskon ke 0
-        $diskon = $transaksi ? $transaksi->discount : 0;
+        $diskon = $order->discount ?? 0;
 
         if ($is_admin || $order->user_id == $user->id) {
             return view('show_order', compact('title', 'order', 'diskon'));
@@ -88,7 +81,7 @@ class OrderController extends Controller
     }
 
 
-    public function submit_payment_receipt(Order $order, Request $request)
+    public function submit_payment_receipt(Order $order, Transaction $transaction, Request $request)
     {
         $file = $request->file('payment_receipt');
         $path = time() . '_' . $order->id . '.' . $file->getClientOriginalExtension();
@@ -96,7 +89,8 @@ class OrderController extends Controller
         Storage::disk('local')->put('public/' . $path, file_get_contents($file));
 
         $order->update([
-            'payment_receipt' => $path
+            'payment_receipt' => $path,
+            'pay_price' => $request->pay_price,
         ]);
 
         return Redirect::back();

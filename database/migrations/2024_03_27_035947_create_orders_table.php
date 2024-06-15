@@ -16,6 +16,8 @@ return new class extends Migration
             $table->boolean('is_paid')->default(false);
             $table->string('payment_receipt')->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->integer('discount')->nullable();
+            $table->integer('pay_price')->nullable();
             $table->timestamps();
         });
     }

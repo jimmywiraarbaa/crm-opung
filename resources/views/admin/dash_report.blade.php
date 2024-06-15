@@ -18,20 +18,29 @@
                             <th scope="col">#</th>
                             <th scope="col">Tanggal</th>
                             <th scope="col">Nama Pemesan</th>
+                            <th scope="col">Nama Menu</th>
                             <th scope="col">Diskon</th>
                             <th scope="col">Total Bayar</th>
                         </tr>
                     </thead>
-                    @foreach ($reports as $report)
-                        <tbody>
-                            <tr>
-                                <th scope="row">{{ $report->id }}</th>
-                                <td>{{ $report->created_at->isoFormat('D MMMM YYYY') }}</td>
-                                <td></td>
-                                <td>Rp. {{ $report->discount }}</td>
-                                <td>Rp. 72.000</td>
-                            </tr>
-                        </tbody>
+                    @foreach ($reports->reverse() as $report)
+                        <tr>
+                            <th scope="row">{{ $report->order_id }}</th>
+                            <td>{{ $report->created_at->isoFormat('D MMMM YYYY HH:mm:ss') }} WIB</td>
+
+                            <td>{{ $report->order->user->name }}</td>
+                            <td>
+                                <ul>
+                                    @foreach ($report->order->transactions as $transaction)
+                                        <li>{{ $transaction->product->name }} -
+                                            Rp.{{ number_format($transaction->product->price, 0, ',', '.') }} -
+                                            {{ $transaction->amount }} pcs</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>Rp.{{ number_format($report->order->discount, 0, ',', '.') }}</td>
+                            <td>Rp.{{ number_format($report->order->pay_price, 0, ',', '.') }}</td>
+                        </tr>
                     @endforeach
                 </table>
             </div>

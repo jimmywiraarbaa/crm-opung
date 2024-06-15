@@ -52,8 +52,8 @@ return [
     |
     */
 
-    // 'url' => env('APP_URL', 'http://localhost'),
-    'url' => env('APP_URL', 'http://192.168.108.4'),
+    'url' => env('APP_URL', 'http://localhost'),
+    // 'url' => env('APP_URL', 'http://192.168.108.4'),
 
     /*
     |--------------------------------------------------------------------------

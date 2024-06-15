@@ -36,7 +36,7 @@
                                 <hr>
                                 @if ($diskon == 0)
                                     <p class="fw-bold">Total Bayar : <span
-                                            class="text-success"><sup>Rp</sup>{{ $total_price }}</span>
+                                            class="text-success"><sup>Rp</sup>{{ $total_pay = $total_price }}</span>
                                     </p>
                                 @else
                                     <p class="fw-bold">Bayar : <span
@@ -46,7 +46,7 @@
                                         <span class="text-success"><sup>Rp</sup>{{ $diskon }}</span>
                                     </p>
                                     <p class="fw-bold">Total Bayar : <span
-                                            class="text-success"><sup>Rp</sup>{{ $total_price - $diskon }}</span>
+                                            class="text-success"><sup>Rp</sup>{{ $total_pay = $total_price - $diskon }}</span>
                                     </p>
                                 @endif
                                 <hr>
@@ -63,6 +63,7 @@
                                     <form action="{{ route('submit_payment_receipt', $order) }}" method="post"
                                         enctype="multipart/form-data">
                                         @csrf
+                                        <input type="number" value="{{ $total_pay }}" name="pay_price" class="">
                                         <div class="form-group">
                                             <label for="payment_receipt">Upload Bukti Bayar</label>
                                             <input class="form-control" type="file" name="payment_receipt"

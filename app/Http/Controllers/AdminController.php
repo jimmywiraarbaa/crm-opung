@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -94,13 +95,15 @@ class AdminController extends Controller
     {
         $title = "Order";
         $today = Carbon::today();
-        $user = Auth::user();
-        $is_admin = $user->is_admin;
-        if ($is_admin) {
-            $orders = Order::whereDate('created_at', Carbon::today())->get();
-        } else {
-            $orders = Order::where('user_id', $user->id)->get();
-        }
+        // $user = Auth::user();
+        // $is_admin = $user->is_admin;
+        // if ($is_admin) {
+        //     $orders = Order::all();
+        // } else {
+        //     $orders = Order::where('user_id', $user->id)->get();
+        // }
+
+        $orders = Order::all();
 
         return view('admin.dash_order', compact('title', 'orders'));
     }
@@ -165,7 +168,17 @@ class AdminController extends Controller
     public function report_dashboard(Transaction $transaction)
     {
         $title = "Laporan";
-        $reports = $transaction::all();
+
+        // Menggunakan query untuk mendapatkan transaksi unik berdasarkan order_id
+        $subQuery = DB::table('transactions')
+            ->select(DB::raw('MIN(id) as id'))
+            ->groupBy('order_id');
+
+        // Mengambil transaksi lengkap berdasarkan id yang didapat dari subquery
+        $reports = Transaction::whereIn('id', $subQuery)
+            ->with(['order.user', 'order.transactions.product']) // Eager loading dengan produk terkait
+            ->get();
+
         return view('admin.dash_report', compact('title', 'reports'));
     }
 

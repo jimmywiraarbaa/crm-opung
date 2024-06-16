@@ -63,7 +63,7 @@
                                     <form action="{{ route('submit_payment_receipt', $order) }}" method="post"
                                         enctype="multipart/form-data">
                                         @csrf
-                                        <input type="number" value="{{ $total_pay }}" name="pay_price" class="">
+                                        <input type="number" value="{{ $total_pay }}" name="pay_price" class="d-none">
                                         <div class="form-group">
                                             <label for="payment_receipt">Upload Bukti Bayar</label>
                                             <input class="form-control" type="file" name="payment_receipt"

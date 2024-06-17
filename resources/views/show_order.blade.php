@@ -20,7 +20,11 @@
                                 @if ($order->is_paid == true)
                                     <p class="card-text text-success">Terbayar</p>
                                 @else
-                                    <p class="card-text text-danger">Belum Bayar</p>
+                                    @if ($order->payment_receipt)
+                                        <p class="card-text text-warning">Menunggu Konfirmasi Admin</p>
+                                    @else
+                                        <p class="card-text text-danger">Belum Bayar</p>
+                                    @endif
                                 @endif
                                 <hr>
                                 @foreach ($order->transactions as $transaction)

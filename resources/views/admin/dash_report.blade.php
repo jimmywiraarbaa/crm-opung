@@ -11,7 +11,11 @@
             @include('admin.layouts.dash_heading')
 
             <div class="p-4 pt-0 ">
-                <button class="btn btn-opung mb-5 ">Cetak Laporan</button>
+
+                {{-- Tombol Cetak Laporan PDF --}}
+                <a href="{{ route('pdf_report_dashboard') }}" class="btn btn-opung mb-5" target="_blank">
+                    Cetak Laporan
+                </a>
                 <table class="table">
                     <thead class="table-primary">
                         <tr class="">

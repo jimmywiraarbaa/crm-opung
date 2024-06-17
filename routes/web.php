@@ -37,6 +37,7 @@ Route::middleware(['admin'])->group(function () {
     Route::post('dashboard/order/{order}/confirm', [OrderController::class, 'confirm_payment'])->name('confirm_payment');
 
     Route::get('/dashboard/report', [AdminController::class, 'report_dashboard'])->name('report_dashboard');
+    Route::get('/dashboard/report/cetak', [AdminController::class, 'pdf_report_dashboard'])->name('pdf_report_dashboard');
 
 
     Route::get('/product/create', [ProductController::class, 'create_product'])->name('create_product');

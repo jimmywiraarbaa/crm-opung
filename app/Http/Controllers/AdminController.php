@@ -166,7 +166,7 @@ class AdminController extends Controller
 
 
 
-    public function report_dashboard(Transaction $transaction)
+    public function report_dashboard(Transaction $transaction, Request $request)
     {
         $title = "Laporan";
 
@@ -180,10 +180,30 @@ class AdminController extends Controller
             ->with(['order.user', 'order.transactions.product']) // Eager loading dengan produk terkait
             ->get();
 
+        if ($request->get('export') == 'pdf') {
+            $pdf = Pdf::loadView('pdf.report', ['reports' => $reports]);
+            return $pdf->download('Laporan.pdf');
+        }
+
         return view('admin.dash_report', compact('title', 'reports'));
     }
 
-    public function report_export()
+    public function pdf_report_dashboard(Request $request)
     {
+        $subQuery = DB::table('transactions')
+            ->select(DB::raw('MIN(id) as id'))
+            ->groupBy('order_id');
+
+        $reports = Transaction::whereIn('id', $subQuery)
+            ->with(['order.user', 'order.transactions.product'])
+            ->get();
+
+        $data = [
+            'title' => 'Laporan',
+            'reports' => $reports,
+        ];
+
+        $pdf = PDF::loadView('pdf.report', $data);
+        return $pdf->download('Laporan Penjualan Opung Waffle Chinatown Cofee.pdf');
     }
 }

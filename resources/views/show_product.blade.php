@@ -22,7 +22,7 @@
 
                             <div>
                                 <h1>{{ $product->name }}</h1>
-                                <h6>{{ $product->description }}</h6>
+                                <h6 style="text-align: justify">{{ $product->description }}</h6>
                                 <h3><sup>Rp</sup>{{ $product->price }}</h3>
                                 <hr>
                                 <p>{{ $product->stock }} left</p>
@@ -44,10 +44,6 @@
                                                 </button>
                                             </div>
                                         </div>
-                                    </form>
-                                @else
-                                    <form action="{{ route('edit_product', $product) }}" method="get">
-                                        <button class="btn btn-primary" type="submit">Ubah Produk</button>
                                     </form>
                                 @endif
 

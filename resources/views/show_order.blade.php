@@ -56,11 +56,13 @@
                                 <hr>
 
                                 <p class="mb-0">Scan QRIS :</p>
-                                <img src="{{ asset('images/KODE-QR-Opung.png') }}" alt="" class="w-75 d-lg-none">
-                                <img src="{{ asset('images/KODE-QR-Opung.png') }}" alt=""
+                                <img src="{{ asset('images/opung/KODE-QR-Opung.png') }}" alt=""
+                                    class="w-75 d-lg-none">
+                                <img src="{{ asset('images/opung/KODE-QR-Opung.png') }}" alt=""
                                     class="w-50 d-none d-lg-block">
                                 <p class="text-danger mb-2">*Jangan lupa Screenshot bukti bayar</p>
-                                <a href="{{ asset('images/KODE-QR-Opung.png') }}" download class="btn btn-success mb-3">
+                                <a href="{{ asset('images/opung/KODE-QR-Opung.png') }}" download
+                                    class="btn btn-success mb-3">
                                     Download QR
                                 </a>
                                 @if ($order->is_paid == false && $order->payment_receipt == null && !Auth::user()->is_admin)

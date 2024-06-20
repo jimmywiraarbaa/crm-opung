@@ -41,7 +41,7 @@
                                             <label for="phone">Nomor HP</label>
 
                                             <div class="mt-2">
-                                                <input type="text" id="phone" name="phone"
+                                                <input type="number" id="phone" name="phone"
                                                     value="{{ old('phone') }}" maxlength="13" placeholder="08325443xxxx"
                                                     class="@error('phone') is-invalid @enderror form-control">
                                                 @error('phone')

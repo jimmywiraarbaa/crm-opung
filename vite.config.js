@@ -2,10 +2,10 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
-    // server: {
-    //     host: '192.168.108.4',
-    //     port: '8000',
-    // },
+    server: {
+        host: '192.168.122.4',
+        port: '8000',
+    },
     plugins: [
         laravel({
             input: [

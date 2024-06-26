@@ -52,8 +52,10 @@ return [
     |
     */
 
-    // 'url' => env('APP_URL', 'http://localhost'),
-    'url' => env('APP_URL', 'http://192.168.122.4'),
+    'url' => env('APP_URL', 'http://localhost'),
+    // 'url' => env('APP_URL', 'http://192.168.122.4'),
+    // Ip hostspot jimmy
+    // 'url' => env('APP_URL', 'http://192.168.38.4'),
 
     /*
     |--------------------------------------------------------------------------

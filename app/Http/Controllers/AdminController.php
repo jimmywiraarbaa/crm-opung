@@ -119,7 +119,7 @@ class AdminController extends Controller
         $transaksi = Transaction::where('order_id', $order->id)->first();
 
         // Jika tidak ada transaksi, set diskon ke 0
-        $diskon = $transaksi ? $transaksi->discount : 0;
+        $diskon = $order->discount ?? 0;
 
         // Cek apakah permintaan adalah untuk export PDF
         if ($request->get('export') == 'pdf') {
@@ -145,7 +145,8 @@ class AdminController extends Controller
         $transaksi = Transaction::where('order_id', $order->id)->first();
 
         // Jika tidak ada transaksi, set diskon ke 0
-        $diskon = $transaksi ? $transaksi->discount : 0;
+        // $diskon = $transaksi ? $transaksi->discount : 0;
+        $diskon = $order->discount ?? 0;
 
         if ($request->get('export') == 'pdf') {
             $pdf = Pdf::loadView('pdf.order', [

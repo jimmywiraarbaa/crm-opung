@@ -50,19 +50,18 @@
 
                     {{-- Menampilkan Diskon jika Ada --}}
                     @if ($diskon == 0)
-                        <p class="fw-bold">Total Bayar :
-                            <span class="text-success"><sup>Rp</sup>{{ number_format($total_price, 0) }}</span>
+                        <p class="fw-bold">Total Bayar : <span
+                                class="text-success"><sup>Rp</sup>{{ $total_pay = $total_price }}</span>
                         </p>
                     @else
-                        <p class="fw-bold">Bayar :
-                            <span
-                                class="text-danger text-decoration-line-through"><sup>Rp</sup>{{ number_format($total_price, 2) }}</span>
+                        <p class="fw-bold">Bayar : <span
+                                class="text-danger text-decoration-line-through"><sup>Rp</sup>{{ $total_price }}</span>
                         </p>
                         <p class="fw-bold">Diskon :
-                            <span class="text-success"><sup>Rp</sup>{{ number_format($diskon, 0) }}</span>
+                            <span class="text-success"><sup>Rp</sup>{{ $diskon }}</span>
                         </p>
-                        <p class="fw-bold">Total Bayar :
-                            <span class="text-success"><sup>Rp</sup>{{ number_format($total_price - $diskon, 0) }}</span>
+                        <p class="fw-bold">Total Bayar : <span
+                                class="text-success"><sup>Rp</sup>{{ $total_pay = $total_price - $diskon }}</span>
                         </p>
                     @endif
 
